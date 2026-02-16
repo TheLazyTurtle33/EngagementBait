@@ -1,0 +1,12 @@
+{
+  "Lua.workspace.library": [
+    "F:/SteamLibrary/steamapps/common/Balatro/Balatro",
+    "C:/Users/jro03/AppData/Roaming/Balatro/Mods/Steamodded",
+    "C:/Users/jro03/AppData/Roaming/Balatro/Mods/lovely",
+  ],
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.diagnostics.globals": [
+    "love"
+  ]
+}

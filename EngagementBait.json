@@ -1,0 +1,10 @@
+{
+  "id": "EngagementBait",
+  "name": "Engagement Bait",
+  "display_name": "Engagement Bait",
+  "author": ["LazyTurtle33"],
+  "description": "Adds new jokers that encourage viewer engagement. Twitch chat is required to use these jokers.",
+  "prefix": "eb",
+  "main_file": "EngagementBait.lua",
+  "version": "0"
+}

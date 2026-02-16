@@ -1,0 +1,18 @@
+Subathon - x1.5 mult for every sub since perches
+bitter - +1 mult for every bit since perches
+Chatter - +1 chip for every chat since perches
+
+Follower - random common joker when follow. room not needed.
+Gifter -  random uncommon joker when gifts a dub. room not needed.
+Subber - random rare joker when sub. room not needed
+Primeer - random legendary joker when prime. room not needed
+
+LoooooogStream - for every min live +1 chips
+ViewBotting - +1 mult for every viewer
+
+TheSecret - x2 mult. -> x50 if chat finds the secret word. (different every run)
+
+DeadChat - x10 mult. -1 every minute of no chat message
+
+TheGreatVote - on perches create a pole, chat choses: +100 chips, x1.5 mult, x3 mult, self-destruct, x0.5 mult (-$10 sell price)
+
