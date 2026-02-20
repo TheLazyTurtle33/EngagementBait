@@ -208,14 +208,19 @@ Twitch.set_start_time = function ()
     	["Client-ID"] = Twitch.client_id,
    		["Authorization"] = "Bearer " .. Twitch.token
 	}
-    local code, body = https.request(
+    https.asyncRequest(
         "https://api.twitch.tv/helix/streams?user_id=" .. EngagementBait.mod.config.id,
         {
             method = "GET",
             headers = headers
-        }
+        },
+        Twitch.set_start_time_global
     )
 
+
+end
+
+Twitch.set_start_time_global = function (code, body, headers)
     if code ~= 200 then
         print("Failed to fetch Twitch user. Code:", code)
         return
@@ -232,7 +237,6 @@ Twitch.set_start_time = function ()
         Twitch.startTime = nil
     end
 end
-
 Twitch.get_stream_duration = function ()
 	if Twitch.startTime == nil then
         Twitch.set_start_time()
