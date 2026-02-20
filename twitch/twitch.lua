@@ -266,7 +266,7 @@ end
 if not Twitch.Chat then
     Twitch.Chat = {}
     Twitch.Chat.Callbacks = {{ card = {}, callback = function(card, data) end }}
-    Twitch.Chat.time_of_last_chat = nil
+    Twitch.Chat.time_of_last_chat = os.time()
 end
 
 Twitch.Chat.register_callback = function (card,callback)
@@ -298,6 +298,12 @@ Twitch.Chat.check_for_chats = function ()
         end
    end
 end
+
+Twitch.Chat.get_last_chat_time = function ()
+    Twitch.Chat.check_for_chats()
+    return Twitch.Chat.time_of_last_chat
+end
+
 
 if not Twitch.Events then
     --@classes
@@ -382,7 +388,6 @@ Twitch.Events.Bits.unregister_callback = function (card)
         end
     end
 end
-
 
 Twitch.Events.Bits.check_for_bits = function ()
     local ch = love.thread.getChannel("twitch_cheer")

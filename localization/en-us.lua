@@ -15,7 +15,15 @@ return {
 					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}chips){}'
 				}
 			},
-			-- j_eb_dead_chat = { name = "DeadChat", text  = {''} },
+			j_eb_dead_chat = {
+				name = "DeadChat",
+				text  = {
+					'{X:mult,C:white} X#1# {} Mult',
+					'lose {X:mult,C:white}X#2#{}  Mult every {C:attention}#3#{} seconds',
+					'without a chat message',
+					'{C:inactive}(Currently {X:mult,C:white}X#4# {C:inactive} Mult){}'
+				}
+			},
 			-- j_eb_follower = { name = "Follower", text  = {''} },
 			-- j_eb_gifter = { name = "Gifter", text  = {''} },
 			j_eb_loooooog_stream = {

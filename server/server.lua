@@ -36,8 +36,9 @@ while true do
         elseif request:match("GET /chat") then
             local name = request:match("username=([^& ]+)")
             local message = request:match("message=([^& ]+)")
+            local time = os.time()
             if name and message then
-                love.thread.getChannel("twitch_chat"):push({name = name, message = message})
+                love.thread.getChannel("twitch_chat"):push({name = name, message = message, time = time})
             end
             client:send("HTTP/1.1 200 OK\r\n\r\nOK")
             
