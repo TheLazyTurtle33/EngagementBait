@@ -44,7 +44,7 @@ SMODS.Joker {
         else
             local now = os.time()
             if (now - card.ability.extra.time_of_last_check) >= card.ability.extra.time_interval_s then
-                card.ability.extra.time_of_last_check = get_new_boss
+                card.ability.extra.time_of_last_check = now
 
                 local last_chat_time = Twitch.Chat.get_last_chat_time()
 
