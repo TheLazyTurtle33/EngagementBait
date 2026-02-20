@@ -1,18 +1,12 @@
 local config_toggles = {
-	-- Mod Mechanics
 }
 
 local config_sliders = {
-    -- Mod Mechanics
+	{ref_value = "poll_duration", label = "eb_config_poll_duration", min = 15, max = 300, step = 5},
 }
 
 local config_text_boxes = {
-    -- Mod Mechanics
     {ref_value = "username", label = "eb_config_linked_account", tooltip = "eb_config_linked_account_tooltip"},
-}
-
-local config_text_inputs = {
-    -- Mod Mechanics
 }
 
 local config_buttons = {
@@ -23,20 +17,16 @@ local config_buttons = {
 }
 
 
-local create_menu_toggles = function (parent, toggles)
-	for k, v in ipairs(toggles) do
+local create_menu_toggles = function (parent, toggle)
 		parent.nodes[#parent.nodes + 1] = create_toggle({
-				label = localize(v.label),
+				label = localize(toggle.label),
 				ref_table = EngagementBait.mod.config,
-				ref_value = v.ref_value,
-				callback = function(_set_toggle)
-				NFS.write(EngagementBait.mod.path.."/config.lua", STR_PACK(EngagementBait.mod.config))
-				end,
+				ref_value = toggle.ref_value,
 		})
-		if v.tooltip then
-			parent.nodes[#parent.nodes].config.detailed_tooltip = v.tooltip
-		end
-	end
+		-- if v.tooltip then
+		-- 	parent.nodes[#parent.nodes].config.detailed_tooltip = v.tooltip
+		-- end
+
 end
 
 
@@ -54,36 +44,19 @@ local create_menu_button = function (parent, config_button, callback)
 	-- end
 end
 
--- local create_menu_slider = function (parent, config_slider)
---     parent.nodes[#parent.nodes + 1] = create_slider({
---         label = localize(config_slider.label),
---         ref_table = EngagementBait.config,
---         ref_value = config_slider.ref_value,
---         min = config_slider.min,
---         max = config_slider.max,
---         step = config_slider.step,
---         callback = function(_set_slider)
---             NFS.write(EngagementBait.mod_dir.."/config.lua", STR_PACK(EngagementBait.config))
---         end,
---     })
---     -- if config_slider.tooltip then
---     --     parent.nodes[#parent.nodes].config.detailed_tooltip = localize(config_slider.tooltip)
---     -- end
--- end
-
--- local create_menu_text_input = function (parent, config_text_input)
---     parent.nodes[#parent.nodes + 1] = create_text_input({
---         label = localize(config_text_input.label),
---         ref_table = EngagementBait.config,
---         ref_value = config_text_input.ref_value,
---         callback = function(_set_text_input)
---             NFS.write(EngagementBait.mod_dir.."/config.lua", STR_PACK(EngagementBait.config))
---         end,
---     })
---     -- if config_text_input.tooltip then
---     --     parent.nodes[#parent.nodes].config.detailed_tooltip = localize(config_text_input.tooltip)
---     -- end
--- end
+local create_menu_slider = function (parent, config_slider)
+    parent.nodes[#parent.nodes + 1] = create_slider({
+        label = localize(config_slider.label),
+        ref_table = EngagementBait.mod.config,
+        ref_value = config_slider.ref_value,
+        min = config_slider.min,
+        max = config_slider.max,
+        step = config_slider.step,
+    })
+    -- if config_slider.tooltip then
+    --     parent.nodes[#parent.nodes].config.detailed_tooltip = localize(config_slider.tooltip)
+    -- end
+end
 
 local create_menu_text_box = function (parent, config_text_box)
         parent.nodes[#parent.nodes + 1] = {
@@ -107,7 +80,9 @@ end
 EngagementBait.config_page = function()
 	local config_button_nodes = {n = G.UIT.R, config = {align = "tm", padding = 0.1, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
 	local config_text_box_nodes = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
+	local config_slider_nodes = {n = G.UIT.R, config = {align = "tm", padding = 0.5, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
     create_menu_text_box(config_text_box_nodes, config_text_boxes[1])
+	create_menu_slider(config_slider_nodes, config_sliders[1])
     create_menu_button(config_button_nodes, config_buttons[1], "EngagementBaitLinkAccount")
     create_menu_button(config_button_nodes, config_buttons[2], "EngagementBaitLinkOpenDashboard")
 	create_menu_button(config_button_nodes, config_buttons[3], "EngagementBaitTwitchRestartServer")
@@ -128,7 +103,6 @@ EngagementBait.config_page = function()
 						align = "tm"
 					},
 					nodes = {
-						-- HEADER (ENHANCEMENT TYPES)
                         {
 							n = G.UIT.R,
 							config = {
@@ -149,7 +123,7 @@ EngagementBait.config_page = function()
 						},
                         config_text_box_nodes,
 						config_button_nodes,
-						-- config_toggle_nodes,
+						config_slider_nodes,
 					}
 				},
 			},
