@@ -24,4 +24,5 @@ EngagementBait.load_files("jokers")
 
 
 Twitch.load()
+Twitch.startServer()
 Twitch.set_start_time()

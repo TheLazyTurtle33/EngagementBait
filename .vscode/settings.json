@@ -8,5 +8,8 @@
   "Lua.workspace.checkThirdParty": false,
   "Lua.diagnostics.globals": [
     "love"
+  ],
+  "Lua.diagnostics.disable": [
+    "param-type-mismatch"
   ]
 }

@@ -1,0 +1,11 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Load modules into threads
+
+[[patches]]
+[patches.module]
+source = "libs/json.lua"
+name = "eb/libs/json"

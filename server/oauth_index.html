@@ -1,0 +1,17 @@
+<html>
+<body>
+<h2>Linking Twitch...</h2>
+<script>
+const hash = window.location.hash;
+const params = new URLSearchParams(hash.substring(1));
+const token = params.get("access_token");
+if(token){
+    fetch("http://localhost:3000/token?access_token=" + token);
+    document.body.innerHTML = "<h2>Success! You will be redirectit to the dashboard in 3 seconds</h2>";
+} else {
+    document.body.innerHTML = "<h2>No token received D: Try re-linking your account. if it still doesn't work, submit a issue on the GitHub repo.</h2>";
+}
+setTimeout(function() {window.location.href = "http://localhost:3000/dashboard";}, 3000);
+</script>
+</body>
+</html>

@@ -17,6 +17,9 @@ local config_text_inputs = {
 
 local config_buttons = {
     {ref_value = "link_account", label = "eb_config_link_account" }, --, tooltip = "eb_config_link_account_tooltip"},
+    {ref_value = "open_dashboard", label = "eb_config_open_dashboard" }, --, tooltip = "eb_config_link_account_tooltip"},
+    {ref_value = "restart_server", label = "eb_config_restart_server" }, --, tooltip = "eb_config_link_account_tooltip"},
+	
 }
 
 
@@ -104,10 +107,10 @@ end
 EngagementBait.config_page = function()
 	local config_button_nodes = {n = G.UIT.R, config = {align = "tm", padding = 0.1, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
 	local config_text_box_nodes = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
-	-- local config_toggle_nodes = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
-	-- create_menu_toggles(config_toggle_nodes, config_toggles)
     create_menu_text_box(config_text_box_nodes, config_text_boxes[1])
     create_menu_button(config_button_nodes, config_buttons[1], "EngagementBaitLinkAccount")
+    create_menu_button(config_button_nodes, config_buttons[2], "EngagementBaitLinkOpenDashboard")
+	create_menu_button(config_button_nodes, config_buttons[3], "EngagementBaitTwitchRestartServer")
 	local config_nodes =
 	{
 		{
@@ -126,25 +129,6 @@ EngagementBait.config_page = function()
 					},
 					nodes = {
 						-- HEADER (ENHANCEMENT TYPES)
-						{
-							n = G.UIT.R,
-							config = {
-								padding = 0,
-								align = "cm"
-							},
-							nodes = {
-								{
-									n = G.UIT.T,
-									config = {
-										text = localize("eb_config_header"),
-										shadow = true,
-										scale = 0.75 * 0.8,
-										colour = HEX("5E40E2")
-									}
-								},
-							},
-						},
-						config_button_nodes,
                         {
 							n = G.UIT.R,
 							config = {
@@ -164,6 +148,7 @@ EngagementBait.config_page = function()
 							},
 						},
                         config_text_box_nodes,
+						config_button_nodes,
 						-- config_toggle_nodes,
 					}
 				},

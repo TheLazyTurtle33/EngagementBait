@@ -1,86 +1,74 @@
-
 local https = require("SMODS.https")
 
-local json = require("json")
+local json = require("eb/libs/json")
 
 if not Twitch then
     --@class
     Twitch = {}
     Twitch.token = "";
     Twitch.client_id = "tztqbknddp0rfm2wmfkjvckjc4in5j"
+    Twitch.channel = nil
+    Twitch.user_id = -1
 end
 
 
 
-server_code = [[
-local html = ...
-local socket = require("socket")
-
-local server = assert(socket.bind("127.0.0.1", 3000))
-server:settimeout(60)
-
-while true do
-    local client = server:accept()
-    if not client then break end
-
-    client:settimeout(1)
-    local request = client:receive()
-
-    if not request then
-        client:close()
-    else
-
-        -- STEP 1: User lands on /callback
-        if request:match("GET /callback") then
-
-            
-
-            client:send(html)
-            client:close()
-
-        -- STEP 2: JS sends token to /token
-        elseif request:match("GET /token") then
-
-            local token = request:match("access_token=([^& ]+)")
-
-            if token then
-                love.thread.getChannel("twitch_auth"):push(token)
-            end
-
-            client:send("HTTP/1.1 200 OK\r\n\r\nOK")
-            client:close()
-            break
-        else
-            client:close()
+Twitch.check_for_data_request = function ()
+    local ch = love.thread.getChannel("twitch_data_request")
+    if ch:peek() == "request" then
+        ch:clear()
+        local data = {notLinked = true}
+        if EngagementBait.mod.config.linked then
+            data = {
+                channel = EngagementBait.mod.config.username,
+                user_id = EngagementBait.mod.config.id,
+                access_token = Twitch.token,
+                notReady = false,
+            }
         end
+        love.thread.getChannel("twitch_data"):push(json.encode(data))
     end
 end
 
-server:close()
-]]
 
-local html = [[
-HTTP/1.1 200 OK
-Content-Type: text/html
+Twitch.startServer = function ()
+    print("Starting Twitch server...")
+    local server_code = io.open(EngagementBait.mod.path .. "server/server.lua", "r"):read("*a")
+    Twitch.server = love.thread.newThread(server_code)
+    Twitch.server:start(EngagementBait.mod.path)
+    local data = {notLinked = true}
+    if EngagementBait.mod.config.linked then
+        data = {
+            channel = EngagementBait.mod.config.username,
+            user_id = EngagementBait.mod.config.id,
+            access_token = Twitch.token,
+            notReady = false,
+        }
+    end
+    love.thread.getChannel("twitch_data"):push(json.encode(data))
+end
 
-<html>
-<body>
-<h2>Linking Twitch...</h2>
-<script>
-const hash = window.location.hash;
-const params = new URLSearchParams(hash.substring(1));
-const token = params.get("access_token");
-if(token){
-    fetch("http://localhost:3000/token?access_token=" + token);
-    document.body.innerHTML = "<h2>Success! You can close this window.</h2>";
-} else {
-    document.body.innerHTML = "<h2>No token received.</h2>";
-}
-</script>
-</body>
-</html>
-]]
+function G.FUNCS.EngagementBaitTwitchRestartServer ()
+    if Twitch.server ~= nil then
+        print("Killing Twitch server...")
+        Twitch.server:release()
+    end
+    Twitch.startServer()
+end
 
+function G.FUNCS.EngagementBaitLinkOpenDashboard ()
+    local data = {notLinked = true}
+    if EngagementBait.mod.config.linked then
+        data = {
+            channel = EngagementBait.mod.config.username,
+            user_id = EngagementBait.mod.config.id,
+            access_token = Twitch.token,
+            notReady = false,
+        }
+    end
+    love.thread.getChannel("twitch_data"):push(json.encode(data))
+    love.system.openURL("http://localhost:3000/dashboard")
+end
 
 function G.FUNCS.EngagementBaitLinkAccount(e)
     local REDIRECT_URI = "http://localhost:3000/callback"
@@ -90,10 +78,8 @@ function G.FUNCS.EngagementBaitLinkAccount(e)
         "?response_type=token" ..
         "&client_id=" .. Twitch.client_id ..
         "&redirect_uri=" .. REDIRECT_URI ..
-        "&scope=user:read:email"
+        "&scope=chat:read+chat:edit+moderator:read:followers+channel:read:subscriptions+bits:read"
 
-    local server = love.thread.newThread(server_code)
-    server:start(html)
 
     love.system.openURL(auth_url)
 
@@ -107,19 +93,27 @@ function G.FUNCS.EngagementBaitLinkAccount(e)
             Twitch.token = token
             EngagementBait.mod.config.oauth = token
             EngagementBait.mod.config.linked = true
-            EngagementBait.mod.config.username = Twitch.get_user_name_and_id()[1]
-            EngagementBait.mod.config.id = Twitch.get_user_name_and_id()[2]
-            -- NFS.write(EngagementBait.mod.path .. "/config.lua", STR_PACK(EngagementBait.mod.config))
+            local user_info = Twitch.get_user_name_and_id()
+            EngagementBait.mod.config.username = user_info[1]
+            EngagementBait.mod.config.id = user_info[2]
+            Twitch.channel = user_info[1]
+            Twitch.user_id = user_info[2]
+            local data = {
+                channel = EngagementBait.mod.config.username,
+                user_id = EngagementBait.mod.config.id,
+                access_token = Twitch.token,
+                notReady = false,
+            }
+            love.thread.getChannel("twitch_data"):clear()
+            love.thread.getChannel("twitch_data"):push(json.encode(data))
             print("Twitch OAuth token received and saved.")
             print("Twitch linked successfully!")
-            server:release()
             return true
         end
         love.timer.sleep(0.1)
     end
 
     print("Twitch linking timed out.")
-    server:release()
     return false
 end
 
@@ -151,7 +145,7 @@ Twitch.get_user_name_and_id = function ()
 
     if code ~= 200 then
         print("Failed to fetch Twitch user. Code:", code)
-        return
+        return {"no one :c", -1}
     end
 	
 
@@ -164,7 +158,7 @@ Twitch.get_user_name_and_id = function ()
         return {user.display_name, user.id}
     else
         print("Failed to parse Twitch response.")
-        return {"no one :c", nil}
+        return {"no one :c", -1}
     end
 end
 
@@ -239,18 +233,6 @@ Twitch.set_start_time = function ()
     end
 end
 
-Twitch.get_follower_count = function ()
-    return 0
-end
-
-Twitch.get_subscriber_count = function ()
-    return 0
-end
-
-Twitch.get_gifter_count = function ()
-    return 0
-end
-
 Twitch.get_stream_duration = function ()
 	if Twitch.startTime == nil then
         Twitch.set_start_time()
@@ -281,5 +263,119 @@ Twitch.stop_and_get_poll_result = function (poll_id)
     return nil
 end
 
+if not Twitch.Chat then
+    Twitch.Chat = {}
+    Twitch.Chat.Callbacks = {{ card = {}, callback = function(card, data) end }}
+end
+
+Twitch.Chat.register_callback = function (card,callback)
+    table.insert(Twitch.Chat.Callbacks, { card = card, callback = callback })
+end
+
+Twitch.Chat.unregister_callback = function (card)
+    for i, cb in ipairs(Twitch.Chat.Callbacks) do
+        if cb.card == card then
+            table.remove(Twitch.Chat.Callbacks, i)
+            break
+        end
+    end
+end
 
 
+Twitch.Chat.check_for_chats = function ()
+
+   local ch = love.thread.getChannel("twitch_chat")
+   if ch:peek() then
+        while ch:peek() do
+            local data = ch:pop()
+            for _, callback in pairs(Twitch.Chat.Callbacks) do
+                callback.callback(callback.card, data)
+            end
+        end
+   end
+end
+
+if not Twitch.Events then
+    --@classes
+Twitch.Events = {}
+Twitch.Events.Subscribe = {}
+Twitch.Events.Subscribe.Callbacks = {{ card = {}, callback = function(card, data) end }}
+Twitch.Events.Follow = {}
+Twitch.Events.Follow.Callbacks = {{ card = {}, callback = function(card, data) end }}
+Twitch.Events.Bits = {}
+Twitch.Events.Bits.Callbacks = {{ card = {}, callback = function(card, data) end }}
+
+end
+
+
+Twitch.Events.register_callback = function (card,callback, event)
+    if event == "subscribe" then
+        table.insert(Twitch.Events.Subscribe.Callbacks, { card = card, callback = callback })
+    elseif event == "follow" then
+        table.insert(Twitch.Events.Follow.Callbacks, { card = card, callback = callback })
+    elseif event == "bits" then
+        table.insert(Twitch.Events.Bits.Callbacks, { card = card, callback = callback })
+    end
+end
+
+Twitch.Events.unregister_callback = function (card, event)
+    if event == "subscribe" then
+        for i, cb in ipairs(Twitch.Events.Subscribe.Callbacks) do
+            if cb.card == card then
+                table.remove(Twitch.Events.Subscribe.Callbacks, i)
+                break
+            end
+        end
+    elseif event == "follow" then
+        for i, cb in ipairs(Twitch.Events.Follow.Callbacks) do
+            if cb.card == card then
+                table.remove(Twitch.Events.Follow.Callbacks, i)
+                break
+            end
+        end
+    elseif event == "bits" then
+        for i, cb in ipairs(Twitch.Events.Bits.Callbacks) do
+            if cb.card == card then
+                table.remove(Twitch.Events.Bits.Callbacks, i)
+                break
+            end
+        end
+    end
+end
+
+
+Twitch.Events.Follow.check_for_follows = function ()
+    local ch = love.thread.getChannel("twitch_follows")
+    if ch:peek() then
+        while ch:peek() do
+            local data = ch:pop()
+            for _, callback in pairs(Twitch.Events.Follow.Callbacks) do
+                callback.callback(callback.card, data)
+            end
+        end
+    end
+end
+
+Twitch.Events.Subscribe.check_for_subscribes = function ()
+    local ch = love.thread.getChannel("twitch_subscribes")
+    if ch:peek() then
+        while ch:peek() do
+            local data = ch:pop()
+            for _, callback in pairs(Twitch.Events.Subscribe.Callbacks) do
+                callback.callback(callback.card, data)
+            end
+        end
+    end
+end
+
+Twitch.Events.Bits.check_for_bits = function ()
+    local ch = love.thread.getChannel("twitch_bits")
+    if ch:peek() then
+        while ch:peek() do
+            local data = ch:pop()
+            for _, callback in pairs(Twitch.Events.Bits.Callbacks) do
+                callback.callback(callback.card, data)
+            end
+        end
+    end
+end
