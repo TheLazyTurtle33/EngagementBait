@@ -266,6 +266,7 @@ end
 if not Twitch.Chat then
     Twitch.Chat = {}
     Twitch.Chat.Callbacks = {{ card = {}, callback = function(card, data) end }}
+    Twitch.Chat.time_of_last_chat = nil
 end
 
 Twitch.Chat.register_callback = function (card,callback)
@@ -289,8 +290,11 @@ Twitch.Chat.check_for_chats = function ()
         while ch:peek() do
             local data = ch:pop()
             for _, callback in pairs(Twitch.Chat.Callbacks) do
-                callback.callback(callback.card, data)
+                if callback.card and callback.callback then
+                    callback.callback(callback.card, data)
+                end
             end
+            Twitch.Chat.time_of_last_chat = data.time
         end
    end
 end
@@ -307,38 +311,15 @@ Twitch.Events.Bits.Callbacks = {{ card = {}, callback = function(card, data) end
 
 end
 
-
-Twitch.Events.register_callback = function (card,callback, event)
-    if event == "subscribe" then
-        table.insert(Twitch.Events.Subscribe.Callbacks, { card = card, callback = callback })
-    elseif event == "follow" then
-        table.insert(Twitch.Events.Follow.Callbacks, { card = card, callback = callback })
-    elseif event == "bits" then
-        table.insert(Twitch.Events.Bits.Callbacks, { card = card, callback = callback })
-    end
+Twitch.Events.Follow.register_callback = function (card, callback)
+    table.insert(Twitch.Events.Follow.Callbacks, { card = card, callback = callback })
 end
 
-Twitch.Events.unregister_callback = function (card, event)
-    if event == "subscribe" then
-        for i, cb in ipairs(Twitch.Events.Subscribe.Callbacks) do
-            if cb.card == card then
-                table.remove(Twitch.Events.Subscribe.Callbacks, i)
-                break
-            end
-        end
-    elseif event == "follow" then
-        for i, cb in ipairs(Twitch.Events.Follow.Callbacks) do
-            if cb.card == card then
-                table.remove(Twitch.Events.Follow.Callbacks, i)
-                break
-            end
-        end
-    elseif event == "bits" then
-        for i, cb in ipairs(Twitch.Events.Bits.Callbacks) do
-            if cb.card == card then
-                table.remove(Twitch.Events.Bits.Callbacks, i)
-                break
-            end
+Twitch.Events.Follow.unregister_callback = function (card)
+    for i, cb in ipairs(Twitch.Events.Follow.Callbacks) do
+        if cb.card == card then
+            table.remove(Twitch.Events.Follow.Callbacks, i)
+            break
         end
     end
 end
@@ -350,11 +331,27 @@ Twitch.Events.Follow.check_for_follows = function ()
         while ch:peek() do
             local data = ch:pop()
             for _, callback in pairs(Twitch.Events.Follow.Callbacks) do
-                callback.callback(callback.card, data)
+                if callback.card and callback.callback then
+                    callback.callback(callback.card, data)
+                end
             end
         end
     end
 end
+
+Twitch.Events.Subscribe.register_callback = function (card, callback)
+    table.insert(Twitch.Events.Subscribe.Callbacks, { card = card, callback = callback })
+end
+
+Twitch.Events.Subscribe.unregister_callback = function (card)
+    for i, cb in ipairs(Twitch.Events.Subscribe.Callbacks) do
+        if cb.card == card then
+            table.remove(Twitch.Events.Subscribe.Callbacks, i)
+            break
+        end
+    end
+end
+
 
 Twitch.Events.Subscribe.check_for_subscribes = function ()
     local ch = love.thread.getChannel("twitch_subscribes")
@@ -362,19 +359,41 @@ Twitch.Events.Subscribe.check_for_subscribes = function ()
         while ch:peek() do
             local data = ch:pop()
             for _, callback in pairs(Twitch.Events.Subscribe.Callbacks) do
-                callback.callback(callback.card, data)
+                if callback.card and callback.callback then
+                    callback.callback(callback.card, data)
+                end
             end
         end
     end
 end
 
+
+
+
+Twitch.Events.Bits.register_callback = function (card, callback)
+    table.insert(Twitch.Events.Bits.Callbacks, { card = card, callback = callback })
+end
+
+Twitch.Events.Bits.unregister_callback = function (card)
+    for i, cb in ipairs(Twitch.Events.Bits.Callbacks) do
+        if cb.card == card then
+            table.remove(Twitch.Events.Bits.Callbacks, i)
+            break
+        end
+    end
+end
+
+
 Twitch.Events.Bits.check_for_bits = function ()
-    local ch = love.thread.getChannel("twitch_bits")
+    local ch = love.thread.getChannel("twitch_cheer")
     if ch:peek() then
         while ch:peek() do
+            print("Checking for bits...")
             local data = ch:pop()
             for _, callback in pairs(Twitch.Events.Bits.Callbacks) do
-                callback.callback(callback.card, data)
+                if callback.card and callback.callback then
+                    callback.callback(callback.card, data)
+                end
             end
         end
     end

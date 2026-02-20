@@ -1,7 +1,13 @@
 return {
 	descriptions  = {
 		Joker = {
-			-- j_eb_bitter = { name = "Bitter", text  = {''} },
+			j_eb_bitter = {
+				 name = "Bitter", text  = {
+					'This Joker gains {C:blue}+#1#{} chips',
+					'per bit since purchase',
+					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}chips){}'
+				}
+			},
 			j_eb_chatter = {
 				 name = "Chatter", text  = {
 					'This Joker gains {C:blue}+#1#{} chips',

@@ -1,8 +1,8 @@
-SMODS.Joker = {
+SMODS.Joker {
     key = "bitter",
     config = {
          extra = {
-            chip = 1,
+            chip = 10,
             bitts = 0,
      	}
     },
@@ -30,6 +30,28 @@ SMODS.Joker = {
         Twitch.Events.Bits.check_for_bits()
     end,
 
-    
+    add_to_deck = function (self, card, deck)
+        Twitch.Events.Bits.register_callback(card, self.bits)
+    end,
+    remove_from_deck = function (self, card, deck)
+        Twitch.Events.Bits.unregister_callback(card)
+    end,
+    load = function (self, card)
+        Twitch.Events.Bits.register_callback(card, self.bits)
+    end,
+    bits = function (card, data)
+        print("bits: " .. data.bits)
+        card.ability.extra.bitts = card.ability.extra.bitts + tonumber(data.bits)
+        attention_text({
+            text = "+" .. data.bits,
+            scale = 0.75,
+            hold = 1,
+            fade = 1,
+            major = card,
+            colour = G.C.PURPLE,
+        })
+        card:juice_up(0.1, 0.2)
+        play_sound('tarot2', 0.76, 0.6);
+    end,
 
 }
