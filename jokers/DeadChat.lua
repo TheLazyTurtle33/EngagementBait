@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = "dead_chat",
+    atlas = 'Joker', pos = { x = 2, y = 0 },
     config = {
        extra = {
             xmult_initial = 10,

@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = "loooooog_stream",
+    atlas = 'Joker', pos = { x = 4, y = 0 },
     config = {
        extra = {
        		chip = 1,

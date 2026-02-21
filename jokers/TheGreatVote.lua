@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = "the_great_vote",
+    atlas = 'Joker', pos = { x = 7, y = 0 },
     config = {
        extra = {
             text = "?????",

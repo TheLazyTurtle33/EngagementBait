@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = "the_secret",
+    atlas = 'Joker', pos = { x = 5, y = 0 },
     config = {
        extra = {
             xmult_raw = 2,

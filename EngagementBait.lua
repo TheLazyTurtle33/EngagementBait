@@ -7,6 +7,12 @@ end
 
 EngagementBait.mod = SMODS.current_mod
 
+SMODS.Atlas({
+    key = "Joker",
+    px = 71,
+    py = 95,
+    path = "jokers.png"
+})
 
 -- Load all joker files from the jokers folder
 function EngagementBait.load_files(dir)

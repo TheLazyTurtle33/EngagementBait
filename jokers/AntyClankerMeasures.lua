@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = "anty_clanker_measures",
+    atlas = 'Joker', pos = { x = 6, y = 0 },
     config = {
         extra = {
             mult = 0,

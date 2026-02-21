@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = "chatter",
+    atlas = 'Joker', pos = { x = 1, y = 0 },
     config = {
        extra = {
        		chip = 1,

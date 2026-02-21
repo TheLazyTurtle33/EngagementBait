@@ -1,5 +1,6 @@
 SMODS.Joker {
     key = "view_botting",
+    atlas = 'Joker', pos = { x = 3, y = 0 },
     config = {
        extra = {
        		mult = 1,
