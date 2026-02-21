@@ -24,6 +24,15 @@ return {
 					'{C:inactive}(Currently {X:mult,C:white}X#4# {C:inactive} Mult){}'
 				}
 			},
+			j_eb_anty_clanker_measures = {
+				name = "Anty Clanker Measures",
+				text  = {
+					'This Joker gains {C:red}+#1#{} Mult',
+					'per chat message since purchase',
+					'If a bot sends a message, {X:mult,C:white}X#2#{} this value',
+					'{C:inactive}(Currently {C:red}+#3#{} {C:inactive}Mult){}'
+				}
+			},
 			-- j_eb_follower = { name = "Follower", text  = {''} },
 			-- j_eb_gifter = { name = "Gifter", text  = {''} },
 			j_eb_loooooog_stream = {

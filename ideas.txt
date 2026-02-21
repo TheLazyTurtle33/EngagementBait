@@ -17,3 +17,6 @@ DeadChat - x10 mult. -1 every minute of no chat message
 TheGreatVote - on purchase create a pole, chat choses: +100 chips, x1.5 mult, x3 mult, self-destruct, x0.5 mult (-$10 sell price)
 
 Emote (seal) - X2 mult in emote only mode, X0.75 in normal mode - by howf
+
+
+Anty Clanker Measures - +10 chips per chat, x0.5 current val per bot message

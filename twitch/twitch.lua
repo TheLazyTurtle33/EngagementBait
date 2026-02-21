@@ -505,3 +505,33 @@ Twitch.Events.Bits.check_for_bits = function ()
         end
     end
 end
+
+
+
+Twitch.is_bot = function (name)
+    local bots = {
+        "moobot",
+        "sery_bot",
+        "streamelements",
+        "nightbot",
+        "fossabot",
+        "streamlabs",
+        "wizebot",
+        "kofistreambot",
+        "tangiabot",
+        "own3d",
+        "creatisbot",
+        "botrixoficial",
+        "frostytoolsdotcom",
+        "kalyue",
+        "djsoupandsalad",
+        "thelazybot33",
+    }
+    
+    for _, bot in ipairs(bots) do
+        if name == bot then
+            return true
+        end
+    end
+    return false
+end
