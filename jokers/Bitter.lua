@@ -2,15 +2,15 @@ SMODS.Joker {
     key = "bitter",
     config = {
          extra = {
-            chip = 10,
+            mult = 1,
             bitts = 0,
      	}
     },
     loc_vars = function (self, info_queue, card)
         return {
            vars = {
-            	card.ability.extra.chip,
-            	card.ability.extra.bitts * card.ability.extra.chip,
+            	card.ability.extra.mult,
+            	card.ability.extra.bitts * card.ability.extra.mult,
            }
         }
     end,
@@ -23,7 +23,7 @@ SMODS.Joker {
     calculate = function (self, card, context)
         if context.joker_main then
         	return {
-                extra = { chips = card.ability.extra.bitts * card.ability.extra.chip } }
+                extra = { mult = card.ability.extra.bitts * card.ability.extra.mult } }
         end
     end,
     update = function (self, card, context)

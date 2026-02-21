@@ -3,16 +3,16 @@ return {
 		Joker = {
 			j_eb_bitter = {
 				 name = "Bitter", text  = {
-					'This Joker gains {C:blue}+#1#{} chips',
+					'This Joker gains {C:red}+#1#{} Mult',
 					'per bit since purchase',
-					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}chips){}'
+					'{C:inactive}(Currently {C:red}+#2#{} {C:inactive}Mult){}'
 				}
 			},
 			j_eb_chatter = {
 				 name = "Chatter", text  = {
-					'This Joker gains {C:blue}+#1#{} chips',
+					'This Joker gains {C:blue}+#1#{} Chips',
 					'per chat message since purchase',
-					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}chips){}'
+					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}Chips){}'
 				}
 			},
 			j_eb_dead_chat = {
@@ -29,9 +29,9 @@ return {
 			j_eb_loooooog_stream = {
 				 name = "Loooooog Stream",
 				 text  = {
-					'This Joker gains {C:blue}+#1#{} chips',
+					'This Joker gains {C:blue}+#1#{} Chips',
 					'per min of stream duration',
-					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}chips){}'
+					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}Chips){}'
 				}
 			},
 			-- j_eb_primer = { name = "Primeer", text  = {''} },
