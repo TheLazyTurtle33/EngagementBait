@@ -49,13 +49,13 @@ SMODS.Joker {
 
     chat = function (card, data)
         local c = G.C.RED
-        if data.message:lower() == card.ability.extra.secret:lower() then
+        if data.message:lower():match("^%w+") == card.ability.extra.secret:lower() then
             card.ability.extra.xmult = card.ability.extra.xmult_full
             c = G.C.GREEN
             card:juice_up(0.1, 0.2)
         end
         attention_text({
-            text = data.message,
+            text = data.message:match("^%w+"),
             scale = 0.5,
             major = card,
             hold = 2.5,
