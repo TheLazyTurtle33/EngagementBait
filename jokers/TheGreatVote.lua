@@ -5,30 +5,33 @@ SMODS.Joker {
             text = "?????",
             active = {},
             choices = { -- 5
-                {text = "example", weight = 0, effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = nil, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0, level_ups = 0, balance = false, staking = true}},
-                {text = "Nothing...", weight = 0.8, effect = {}, staking = true},
-                {text = "Self Destruct", weight = 0.01, effect = {self_destruct = true}, staking = false},
-                {text = "+100 Chips", weight = 0.9, effect = {chips = 100}, staking = true},
-                {text = "X2 Chips", weight = 0.5, effect = {xchips = 2}, staking = true},
-                {text = "+50 Mult", weight = 0.85, effect = {mult = 50}, staking = true},
-                {text = "X2 mult", weight = 0.5, effect={ xmult = 2}, staking = true},
-                {text = "X5 mult", weight = 0.4, effect = {xmult = 5}, staking = true},
-                {text = "X0.75 mult", weight = 0.4, effect = {xmult = 0.75}, staking = true},
-                {text = "-50 Chips", weight = 0.4, effect = {chips = -50}, staking = true},
-                {text = "X0.5 Chips", weight = 0.3, effect = {xchips = 0.5}, staking = true},
-                -- {text = "Photo", weight = 0.1, effect = {joker_copy = "j_photograph"}, staking = false},
-                -- {text = "Chad", weight = 0.1, effect = {joker_copy = "j_hanging_chad"}, staking = false},
-                -- {text = "Chicot", weight = 0.2, effect = {joker_copy = "j_chicot"}, staking = false},
-                -- {text = "Hand size +1", weight = 0.5, effect = {extra_slots = {hand = 1}}, staking = true},
-                -- {text = "Hand size -1", weight = 0.5, effect = {extra_slots = {hand = -1}}, staking = true},
-                {text = "LEVEL UP!", weight = 0.1, effect = {level_ups = 1}, staking = true},
-                {text = "LEVEL DOWN!", weight = 0.08, effect = {level_ups = -1}, staking = true},
-                {text = "Yes but choice 1", weight = 0.02, effect = {xchips = 2}, staking = true},
-                {text = "Yes but choice 2", weight = 0.02, effect = {xmult = 2}, staking = true},
-                {text = "Yes but choice 3", weight = 0.02, effect = {xmult = 3}, staking = true},
-                {text = "Yes but choice 4", weight = 0.02, effect = {xmult = 4}, staking = true},
-                {text = "Yes but choice 5", weight = 0.02, effect = {xmult = 5}, staking = true},
-                {text = "Plasma", weight = 0.2, effect = {balance = true}, staking = false},
+                {text = "example", weight = 0, effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = {}, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0, level_ups = 0, balance = false, staking = true}},
+                {text = "Nothing...",       weight = 0.80, effect = {},                                                 staking = true  },
+                {text = "Self Destruct",    weight = 0.01, effect = {self_destruct = true},                             staking = false },
+                {text = "+100 Chips",       weight = 0.90, effect = {chips = 100},                                      staking = true  },
+                {text = "X2 Chips",         weight = 0.50, effect = {xchips = 2},                                       staking = true  },
+                {text = "+50 Mult",         weight = 0.85, effect = {mult = 50},                                        staking = true  },
+                {text = "X2 mult",          weight = 0.50, effect = { xmult = 2},                                       staking = true  },
+                {text = "X5 mult",          weight = 0.40, effect = {xmult = 5},                                        staking = true  },
+                {text = "X0.75 mult",       weight = 0.40, effect = {xmult = 0.75},                                     staking = true  },
+                {text = "-50 Chips",        weight = 0.40, effect = {chips = -50},                                      staking = true  },
+                {text = "X0.5 Chips",       weight = 0.30, effect = {xchips = 0.5},                                     staking = true  },
+                {text = "PhotoChad",        weight = 0.10, effect = {joker_copy = {"j_photograph","j_hanging_chad"}},   staking = false },
+                {text = "Unesless",         weight = 0.20, effect = {joker_copy = {"j_chicot"}},                        staking = false },
+                {text = "Hand size +1",     weight = 0.50, effect = {extra_slots = {hand = 1}},                         staking = true  },
+                {text = "Hand size -1",     weight = 0.50, effect = {extra_slots = {hand = -1}},                        staking = true  },
+                {text = "LEVEL UP!",        weight = 0.10, effect = {level_ups = 1},                                    staking = true  },
+                {text = "LEVEL DOWN!",      weight = 0.08, effect = {level_ups = -1},                                   staking = true  },
+                {text = "Yes but choice 1", weight = 0.02, effect = {xchips = 2},                                       staking = true  },
+                {text = "Yes but choice 2", weight = 0.02, effect = {xmult = 2},                                        staking = true  },
+                {text = "Yes but choice 3", weight = 0.02, effect = {xmult = 3},                                        staking = true  },
+                {text = "Yes but choice 4", weight = 0.02, effect = {xmult = 4},                                        staking = true  },
+                {text = "Yes but choice 5", weight = 0.02, effect = {xmult = 5},                                        staking = true  },
+                {text = "Plasma",           weight = 0.20, effect = {balance = true},                                   staking = false },
+                -- {text = "ReTriggered",      weight = 0.03, effect = {repetition = 1},                                   staking = false },
+                {text = "Negative",         weight = 0.10, effect = {extra_slots = {joker = 1}},                        staking = false },
+                {text = "Positive",         weight = 0.10, effect = {extra_slots = {joker = -1}},                       staking = false },
+
 
 
 
@@ -47,41 +50,48 @@ SMODS.Joker {
     cost = 20,
     unloxed = true,
     descover = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     calculate = function (self, card, context)
-        if context.before then
-            if not card.ability.extra.active then
-                return {
-                    message = "NOT READYT"
-                }
-            end
-        end
-        
         if context.setting_blind and not context.skip_blind then
             local choices = self.get_weighted_choices(card.ability.extra.choices, 5)
             local choice_formated = {}
+            local ret = {}
             for i, choice in ipairs(choices) do
                 table.insert(choice_formated, {title = choice.text})
             end
             Twitch.start_poll("The Great Vote", choice_formated, EngagementBait.mod.config.poll_duration)
-            return { message = "Vote Started!" }
-        end
-        
-        if context.blind_defeated then
-            local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
-            print(eff)
-            self.poll_ended(card, eff)            
-        end
-        
-        if context.joker_main then
-            if not card.ability.extra.active or card.ability.extra.active == {} then
-                return {
-                    message = "NOT READYT"
-                }
+            ret.message = "Vote Started!"
+            
+            if card.ability.extra.active and card.ability.extra.active ~= {} then
+                for i, effect in ipairs(card.ability.extra.active) do
+                    if effect.hands_dif then
+                        ease_hands_played(effect.hands_dif)
+                    end
+                    if effect.discgard_dif then
+                        ease_discard(effect.discgard_dif)
+                    end
+                end
             end
+            
+            return ret
 
-            local r = {}
+            
+
+
+        end
+        
+        -- if context.blind_defeated then
+        --     local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
+        --     print(eff)
+        --     self.poll_ended(card, eff)
+        -- end
+        
+
+        
+        if context.joker_main and card.ability.extra.active and card.ability.extra.active ~= {} then
+
+            local ret = {}
 
             for i, effect in ipairs(card.ability.extra.active) do
                 -- effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = nil, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0}
@@ -98,68 +108,129 @@ SMODS.Joker {
                     return
                 end
 
-                if effect.chips then
-                    if not r.chips then
-                        r.chips = effect.chips
-                    else
-                        r.chips = r.chips + effect.chips
-                    end
-                end
+                ret = self.murge_returns(ret, effect)
 
-                if effect.mult then
-                    if not r.mult then
-                        r.mult = effect.mult
-                    else
-                        r.mult = r.mult + effect.mult
-                    end
-                end
-
-                if effect.xchips then
-                    if not r.xchips then
-                        r.xchips = effect.xchips
-                    else
-                        r.xchips = r.xchips * effect.xchips
-                    end
-                end
-
-                if effect.xmult then
-                    if not r.xmult then
-                        r.xmult = effect.xmult
-                    else
-                        r.xmult = r.xmult * effect.xmult
-                    end
-                end
-
-                if effect.dollars then
-                    if not r.dollars then
-                        r.dollars = effect.dollars
-                    else
-                        r.dollars = r.dollars + effect.dollars
-                    end
-                end
-
-                if effect.level_ups then
-                    if not r.level_up then
-                        r.level_up = effect.level_ups
-                    else
-                        r.level_up = r.level_up + effect.level_ups
-                    end
-                end
-                
-                if effect.balance then
-                    r.balance = effect.balance
-                end
 
                 if effect.sell_price_dif then
                     card.sell_cost =  card.sell_cost + effect.sell_price_dif
                     card.sell_cost_label = tostring(card.sell_cost)
                 end
-
-
             end
-            print(r)
-            return r
+            print(ret)
+            return ret
         end
+
+        local ret = {}
+        for i, effect in ipairs(card.ability.extra.active) do
+            if effect.joker_copy then
+                for j, _ in ipairs(effect.joker_copy) do
+                    if effect.joker_copy[j] == "j_photograph" then
+                        if context.individual and context.cardarea == G.play and context.other_card:is_face() then
+                            local is_first_face = false
+                            for i = 1, #context.scoring_hand do
+                                if context.scoring_hand[i]:is_face() then
+                                    is_first_face = context.scoring_hand[i] == context.other_card
+                                    break
+                                end
+                            end
+                            if is_first_face then
+                                ret = self.murge_returns(ret, {
+                                    xmult = 2
+                                })
+                            end
+                        end
+                    elseif effect.joker_copy[j] == "j_hanging_chad" then
+                        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
+                            ret = self.murge_returns(ret, {
+                                repetitions = 2
+                            })
+                        end
+                    elseif effect.joker_copy[j] == "j_chicot" then
+                        if context.setting_blind and not context.blueprint and context.blind.boss then
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    G.E_MANAGER:add_event(Event({
+                                        func = function()
+                                            G.GAME.blind:disable()
+                                            play_sound('timpani')
+                                            delay(0.4)
+                                            return true
+                                        end
+                                    }))
+                                    SMODS.calculate_effect({ message = localize('ph_boss_disabled') }, card)
+                                end
+                            }))
+                        end
+                    end
+                end
+            end
+            
+        end
+        return ret
+    end,
+
+    murge_returns = function (r1, r2)
+        if r2.chips then
+            if not r1.chips then
+                r1.chips = r2.chips
+            else
+                r1.chips = r1.chips + r2.chips
+            end
+        end
+        if r2.mult then
+            if not r1.mult then
+                r1.mult = r2.mult
+            else
+                r1.mult = r1.mult + r2.mult
+            end
+        end
+
+        if r2.dollars then
+            if not r1.dollars then
+                r1.dollars = r2.dollars
+            else
+                r1.dollars = r1.dollars + r2.dollars
+            end
+        end
+
+        if r2.level_ups then
+            if not r1.level_up then
+                r1.level_up = r2.level_ups
+            else
+                r1.level_up = r1.level_up + r2.level_ups
+            end
+        end
+
+        if r2.xchips then
+            if not r1.xchips then
+                r1.xchips = r2.xchips
+            else
+                r1.xchips = r1.xchips * r2.xchips
+            end
+        end
+
+        if r2.xmult then
+            if not r1.xmult then
+                r1.xmult = r2.xmult
+            else
+                r1.xmult = r1.xmult * r2.xmult
+            end
+        end
+
+        if r2.repetitions then
+            if not r1.repetitions then
+                r1.repetitions = r2.repetitions
+            else
+                r1.repetitions = r1.repetitions + r2.repetitions
+            end
+        end
+
+        if r2.balance ~= nil then
+            r1.balance = r2.balance
+        end
+
+
+        return r1
     end,
 
 
@@ -190,6 +261,20 @@ SMODS.Joker {
                     major = card,
                     colour = G.C.GREEN,
                 })
+
+                if choice.effect.extra_slots then
+                    if choice.effect.extra_slots.hand then
+                        G.hand:change_size(choice.effect.extra_slots.hand)
+                    end
+                    if choice.effect.extra_slots.joker then
+                        G.jokers.config.card_limit = G.jokers.config.card_limit + choice.effect.extra_slots.joker
+                    end
+                    if choice.effect.extra_slots.consumeable then
+                        G.consumeables.config.card_limit = G.consumeables.config.card_limit + choice.effect.extra_slots.consumeable
+                    end
+                end
+
+
                 break
             end
         end
@@ -198,10 +283,27 @@ SMODS.Joker {
 
     add_to_deck = function (self, card, from_debuff)
         Twitch.register_poll_end_callback(card, self.poll_ended)
+        -- self.poll_ended(card,{text = "Photo"})
+        -- self.poll_ended(card,{text = "Chad"})
     end,
 
     remove_from_deck = function (self, card, from_debuff)
         Twitch.unregister_poll_end_callback()
+        if card.ability.extra.active and card.ability.extra.active ~= {} then
+            for i, effect in ipairs(card.ability.extra.active) do
+                if effect.extra_slots then
+                    if effect.extra_slots.hand then
+                        G.hand:change_size(-effect.extra_slots.hand)
+                    end
+                    if effect.extra_slots.joker then
+                        G.jokers.config.card_limit = G.jokers.config.card_limit + effect.extra_slots.joker
+                    end
+                    if effect.extra_slots.consumeable then
+                        G.consumeables.config.card_limit = G.consumeables.config.card_limit + effect.extra_slots.consumeable
+                    end
+                end
+            end
+        end
     end,
 
     load = function (self, card)
