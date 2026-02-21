@@ -52,6 +52,7 @@ local create_menu_slider = function (parent, config_slider)
         min = config_slider.min,
         max = config_slider.max,
         step = config_slider.step,
+		w = 3
     })
     -- if config_slider.tooltip then
     --     parent.nodes[#parent.nodes].config.detailed_tooltip = localize(config_slider.tooltip)

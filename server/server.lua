@@ -50,6 +50,90 @@ while true do
             end
             client:send("HTTP/1.1 200 OK\r\n\r\nOK")
             client:close()
+        elseif request:match("PUT /poll_end") then
+            -- read headers until blank line, logging them
+            local headers = {}
+            while true do
+                local line = client:receive()
+                if not line or line == "" then break end
+                table.insert(headers, line)
+            end
+            if #headers > 0 then
+                print("[server] /poll_end headers:")
+                for _, h in ipairs(headers) do print("[server]  ", h) end
+            end
+
+            -- detect transfer encoding
+            local isChunked = false
+            for _, h in ipairs(headers) do
+                if h:lower():match("transfer%-encoding:%s*chunked") then
+                    isChunked = true
+                    break
+                end
+            end
+
+            local content = ""
+            if isChunked then
+                -- parse chunked body
+                while true do
+                    local lenLine = client:receive("*l")
+                    if not lenLine then break end
+                    local len = tonumber(lenLine, 16)
+                    if not len or len == 0 then
+                        -- consume trailing CRLF if present
+                        client:receive(2)
+                        break
+                    end
+                    -- accumulate chunk, retry if partial
+                    while #content < len do
+                        local part = client:receive(len - #content)
+                        if not part then
+                            socket.sleep(0.01)
+                        else
+                            content = content .. part
+                        end
+                    end
+                    -- skip CRLF after chunk
+                    client:receive(2)
+                end
+            else
+                -- try content-length first
+                local length = 0
+                for _, h in ipairs(headers) do
+                    local k,v = h:match("([^:]+):%s*(.*)")
+                    if k and k:lower() == "content-length" then
+                        length = tonumber(v) or 0
+                        break
+                    end
+                end
+                if length > 0 then
+                    -- loop until full content received
+                    while #content < length do
+                        local part = client:receive(length - #content)
+                        if not part then
+                            socket.sleep(0.01)
+                        else
+                            content = content .. part
+                        end
+                    end
+                else
+                    -- read until timeout by grabbing chunks
+                    while true do
+                        local chunk = client:receive(1024)
+                        if not chunk then break end
+                        content = content .. chunk
+                    end
+                end
+            end
+
+            if content == "" then
+                print("[server] /poll_end received empty body")
+            else
+                print("[server] /poll_end body:", content)
+                love.thread.getChannel("twitch_poll"):push(content)
+            end
+            client:send("HTTP/1.1 200 OK\r\n\r\nOK")
+            client:close()
         elseif request:match("GET /subscribe") then
             local name = request:match("username=([^& ]+)")
             local tier = request:match("tier=([^& ]+)")

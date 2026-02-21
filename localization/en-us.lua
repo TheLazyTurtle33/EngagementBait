@@ -63,9 +63,13 @@ return {
 			eb_config_open_dashboard = "Open Dashboard",
 			eb_config_linked_account = "Linked Twitch Account:",
 			eb_config_restart_server = "Restart Server",
+			eb_config_poll_duration = "Poll Duration (seconds)",
 			eb_config_link_account_tooltip = "Links your Twitch account to the mod.",
 			eb_config_linked_account_tooltip = "Shows the name of the currently linked Twitch account.",
 			eb_config_restart_server_tooltip = "Restarts the local server. Use this if the mod isn't responding to Twitch or if you changed your Twitch account.",
+			eb_config_poll_duration_tooltip = "Sets the duration for polls created by jokers like The Great Vote.",
+			
+		
 		}
 	}
 

@@ -1,6 +1,6 @@
 local https = require("SMODS.https")
 
-local json = require("eb/libs/json")
+local json = require("json")
 
 if not Twitch then
     --@class
@@ -78,7 +78,7 @@ function G.FUNCS.EngagementBaitLinkAccount(e)
         "?response_type=token" ..
         "&client_id=" .. Twitch.client_id ..
         "&redirect_uri=" .. REDIRECT_URI ..
-        "&scope=chat:read+chat:edit+moderator:read:followers+channel:read:subscriptions+bits:read"
+        "&scope=chat:read+chat:edit+moderator:read:followers+channel:read:subscriptions+bits:read+channel:manage:polls"
 
 
     love.system.openURL(auth_url)
@@ -259,13 +259,111 @@ Twitch.get_stream_duration = function ()
     -- return 0
 end
 
+
+
+
 Twitch.start_poll = function (question, options, duration)
-    return nil
+        -- local headers = {
+        -- 	["Client-ID"] = Twitch.client_id,
+    	-- 	["Authorization"] = "Bearer " .. Twitch.token,
+        --     ["Content-Type"] = "application/json"
+    	-- }
+        -- local body = json.encode({
+        --     broadcaster_id = EngagementBait.mod.config.id,
+        --     title = question,
+        --     choices = options,
+        --     duration = duration
+        -- })
+        -- -- body = [[{"broadcaster_id":"884480140","title":"Heads or Tails?","choices":[{"title":"Heads"},{"title":"Tails"}],"channel_points_voting_enabled":true,"channel_points_per_vote":100,"duration":1800}]]
+        -- -- print("Body sent: "..body)
+
+        -- https.asyncRequest(
+        --     "https://api.twitch.tv/helix/polls",
+        --     {
+        --         method = "POST",
+        --         headers = headers,
+        --         body = body
+        --     },
+        --     Twitch.Set_poll_id
+        -- )
+
+
+
+        local headers = {
+        	["Client-ID"] = "3697aa4dd04f7212a28052cc7a98c2",
+    		["Authorization"] = "Bearer " .. "a92ea0ab9c9a903",
+            ["Content-Type"] = "application/json"
+    	}
+        local body = json.encode({
+            duration = duration,
+            choices = options,
+            title = question,
+            broadcaster_id = "15510855",
+        })
+
+        https.asyncRequest(
+            "http://127.0.0.1:8080/mock/polls",
+            {
+                method = "POST",
+                headers = headers,
+                body = body
+            },
+            Twitch.CheckSucsess
+        )
 end
 
-Twitch.stop_and_get_poll_result = function (poll_id)
-    return nil
+Twitch.CheckSucsess = function (code, body, headers)
+    if code ~= 200 then
+        print("Failed to start poll. Code:", code)
+        print("Response body:", body)   
+        return
+    end
 end
+
+Twitch.get_poll_result = function ()
+    local ch = love.thread.getChannel("twitch_poll")
+    if ch:peek() then
+        local data_raw = ch:pop()
+        print("raw data: ".. data_raw)
+        local data = json.decode(data_raw)
+        if data then
+            print("Poll has ended. Processing results...")
+            local winning = { text = "No votes", votes = 0, tie = {} }
+            for _, choice in ipairs(data) do
+                if choice.votes > winning.votes then
+                    winning = choice
+                    winning.tie = {}
+                elseif choice.votes == winning.votes then
+                    table.insert(winning.tie, choice)
+                end
+            end
+            if #winning.tie > 0 then
+                local ran = math.random(1, #winning.tie)
+                winning = winning.tie[ran]  
+            end
+            print("Winning choice:", winning.title, "with", winning.votes, "votes")
+            if Twitch.poll_end_callback.card and Twitch.poll_end_callback.callback then
+                Twitch.poll_end_callback.callback(Twitch.poll_end_callback.card, winning)
+            end
+        end
+    end
+
+end
+Twitch.poll_end_callback = {
+    card = nil,
+    callback = function (card, data) end
+}
+
+Twitch.register_poll_end_callback = function (card, callback)
+    Twitch.poll_end_callback.card = card
+    Twitch.poll_end_callback.callback = callback
+end
+
+Twitch.unregister_poll_end_callback = function ()
+    Twitch.poll_end_callback.card = nil
+    Twitch.poll_end_callback.callback = function (card, data) end
+end
+
 
 if not Twitch.Chat then
     Twitch.Chat = {}

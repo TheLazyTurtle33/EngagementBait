@@ -95,6 +95,8 @@ function connectEventSub() {
             await subscribe("channel.follow", "2");
             await subscribe("channel.subscribe", "1");
             await subscribe("channel.cheer", "1");
+            await subscribe("channel.poll.end", "1");
+
 
         }
 
@@ -116,6 +118,16 @@ function connectEventSub() {
                     console.log(`${event.user_name} cheered ${event.bits} bits!`);
                     fetch("http://localhost:3000/cheer?username=" + event.user_name + "&bits=" + event.bits);
                     break;
+                case "channel.poll.end":
+                    console.log(`Poll: ${event.title} ended with the shoices: ${JSON.stringify(event.choices)}`)
+                    const bodyStr = JSON.stringify(event.choices);
+                    console.log("sending poll_end body", bodyStr);
+                    fetch("http://localhost:3000/poll_end", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: bodyStr
+                    })
+
             }
         }
     });
