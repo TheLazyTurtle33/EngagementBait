@@ -14,7 +14,7 @@ SMODS.Joker {
            }
         }
     end,
-    rarity = 1,
+    rarity = 2,
     cost = 5,
     unloxed = true,
     descover = false,
