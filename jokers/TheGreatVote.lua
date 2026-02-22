@@ -3,7 +3,7 @@ SMODS.Joker {
     atlas = 'Joker', pos = { x = 7, y = 0 },
     config = {
        extra = {
-            text = "?????",
+            text = "?????????",
             active = {},
             choices = { -- 5
                 {text = "example", weight = 0, effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = {}, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0, level_ups = 0, balance = false, staking = true}},
@@ -42,11 +42,30 @@ SMODS.Joker {
     	}
     },
     loc_vars = function (self, info_queue, card)
+            local text = card.ability.extra.text
+            local size = 0.9
+            local font = G.LANG.font
+            local max_text_width = 2 - 2*0.05 - 4*0.03*size - 2*0.03
+            local calced_text_width = 0
+            -- Math reproduced from DynaText:update_text
+            for _, c in utf8.chars(text) do
+                local tx = font.FONT:getWidth(c)*(0.33*size)*G.TILESCALE*font.FONTSCALE + 2.7*1*G.TILESCALE*font.FONTSCALE
+                calced_text_width = calced_text_width + tx/(G.TILESIZE*G.TILESCALE)
+            end
+            local scale_fac = 1
         return {
            vars = {
-           }
-        } 
+        },
+        main_end = {{n=G.UIT.R, config={align = "cm"}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, r = 0.1, minw = 2, minh = 0.36, emboss = 0.05, padding = 0.03*size}, nodes={
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                  {n=G.UIT.O, config={object = DynaText({string = text or 'ERROR', colours = {G.C.BLACK},float = true, shadow = true, offset_y = -0.05, silent = true, spacing = 1*scale_fac, scale = 0.33*size*scale_fac, marquee = calced_text_width > max_text_width, maxw = max_text_width})}},
+                  {n=G.UIT.B, config={h=0.1,w=0.03}},
+                }}
+              }}}
+    }
     end,
+    
     rarity = 4,
     cost = 20,
     unloxed = true,
@@ -82,11 +101,11 @@ SMODS.Joker {
 
         end
         
-        -- if context.blind_defeated then
-        --     local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
-        --     print(eff)
-        --     self.poll_ended(card, eff)
-        -- end
+        if context.blind_defeated then
+            local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
+            print(eff)
+            self.poll_ended(card, eff)
+        end
         
 
         
@@ -250,7 +269,11 @@ SMODS.Joker {
         for i, choice in ipairs(card.ability.extra.choices) do
             if choice.text == name then
                 table.insert(card.ability.extra.active, choice.effect)
-                card.ability.extra.text = card.ability.extra.text .. " & " .. choice.text
+                if card.ability.extra.text == "?????????" then
+                    card.ability.extra.text = choice.text
+                else
+                    card.ability.extra.text = card.ability.extra.text .. " & " .. choice.text
+                end
                 if not choice.staking then
                     table.remove(card.ability.extra.choices, i) -- so it cant be chosen again
                 end

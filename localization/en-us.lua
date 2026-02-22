@@ -46,7 +46,14 @@ return {
 			-- j_eb_primer = { name = "Primeer", text  = {''} },
 			-- j_eb_subathon = { name = "Subathon", text  = {''} },
 			-- j_eb_subber = { name = "Subber", text  = {''} },
-			-- j_eb_the_great_vote = { name = "The Great Vote", text  = {''} },
+			j_eb_the_great_vote = {
+				name = "The Great Vote",
+				text  = {
+					'At the start of every round',
+					'create a poll and chat choise',
+					'what new power this joker get'
+				}
+			},
 			j_eb_the_secret = {
 				name = "The Secret", text  = {
 					'{X:mult,C:white} X#1# {} Mult',
