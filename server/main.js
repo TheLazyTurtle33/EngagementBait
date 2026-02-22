@@ -78,8 +78,8 @@ function connectEventSub() {
          setTimeout(connectEventSub, 1000);
         return;
     }
-    // const ws = new WebSocket("wss://eventsub.wss.twitch.tv/ws");
-    const ws = new WebSocket("ws://localhost:8080/ws");
+    const ws = new WebSocket("wss://eventsub.wss.twitch.tv/ws");
+    // const ws = new WebSocket("ws://localhost:8080/ws");
 
     ws.addEventListener("message", async (data) => {
         // data = data.toString();
