@@ -203,21 +203,20 @@ end
 
 Twitch.startTime = nil
 Twitch.set_start_time = function ()
-    
-	local headers = {
-    	["Client-ID"] = Twitch.client_id,
-   		["Authorization"] = "Bearer " .. Twitch.token
-	}
-    https.asyncRequest(
-        "https://api.twitch.tv/helix/streams?user_id=" .. EngagementBait.mod.config.id,
-        {
-            method = "GET",
-            headers = headers
-        },
-        Twitch.set_start_time_global
-    )
-
-
+    if EngagementBait.mod.config and EngagementBait.mod.config.id then
+        local headers = {
+            ["Client-ID"] = Twitch.client_id,
+            ["Authorization"] = "Bearer " .. Twitch.token
+        }
+        https.asyncRequest(
+            "https://api.twitch.tv/helix/streams?user_id=" .. EngagementBait.mod.config.id,
+            {
+                method = "GET",
+                headers = headers
+            },
+            Twitch.set_start_time_global
+        )
+    end
 end
 
 Twitch.set_start_time_global = function (code, body, headers)
@@ -263,46 +262,21 @@ end
 
 
 Twitch.start_poll = function (question, options, duration)
-        local headers = {
-        	["Client-ID"] = Twitch.client_id,
-    		["Authorization"] = "Bearer " .. Twitch.token,
-            ["Content-Type"] = "application/json"
-    	}
-        local body = json.encode({
-            broadcaster_id = EngagementBait.mod.config.id,
-            title = question,
-            choices = options,
-            duration = duration
-        })
-        -- body = [[{"broadcaster_id":"884480140","title":"Heads or Tails?","choices":[{"title":"Heads"},{"title":"Tails"}],"channel_points_voting_enabled":true,"channel_points_per_vote":100,"duration":1800}]]
-        -- print("Body sent: "..body)
-
-        https.asyncRequest(
-            "https://api.twitch.tv/helix/polls",
-            {
-                method = "POST",
-                headers = headers,
-                body = body
-            },
-            Twitch.CheckSucsess
-        )
-
-
-
         -- local headers = {
-        -- 	["Client-ID"] = "3697aa4dd04f7212a28052cc7a98c2",
-    	-- 	["Authorization"] = "Bearer " .. "a92ea0ab9c9a903",
+        -- 	["Client-ID"] = Twitch.client_id,
+    	-- 	["Authorization"] = "Bearer " .. Twitch.token,
         --     ["Content-Type"] = "application/json"
     	-- }
         -- local body = json.encode({
-        --     duration = duration,
-        --     choices = options,
+        --     broadcaster_id = EngagementBait.mod.config.id,
         --     title = question,
-        --     broadcaster_id = "15510855",
+        --     choices = options,
+        --     duration = duration
         -- })
-
+        -- -- print("Body sent: "..body)
+        
         -- https.asyncRequest(
-        --     "http://127.0.0.1:8080/mock/polls",
+        --     "https://api.twitch.tv/helix/polls",
         --     {
         --         method = "POST",
         --         headers = headers,
@@ -310,7 +284,34 @@ Twitch.start_poll = function (question, options, duration)
         --     },
         --     Twitch.CheckSucsess
         -- )
+
+
+
+        local headers = {
+        	["Client-ID"] = "3697aa4dd04f7212a28052cc7a98c2",
+    		["Authorization"] = "Bearer " .. "a92ea0ab9c9a903",
+            ["Content-Type"] = "application/json"
+    	}
+        local body = json.encode({
+            duration = duration,
+            choices = options,
+            title = question,
+            broadcaster_id = "15510855",
+        })
+        
+        -- body = [[{"broadcaster_id":"884480140","title":"Heads or Tails?","choices":[{"title":"Heads"},{"title":"Tails"}],"channel_points_voting_enabled":true,"channel_points_per_vote":100,"duration":1800}]]
+        https.request(
+            "http://127.0.0.1:8080/mock/polls",
+            {
+                method = "POST",
+                headers = headers,
+                data = body
+            }
+            -- Twitch.CheckSucsess
+        )
 end
+
+
 
 Twitch.CheckSucsess = function (code, body, headers)
     if code ~= 200 then
@@ -405,6 +406,43 @@ Twitch.Chat.get_last_chat_time = function ()
     Twitch.Chat.check_for_chats()
     return Twitch.Chat.time_of_last_chat
 end
+
+
+Twitch.Chat.ChatModeLastChecked = 0
+Twitch.Chat.ChatModeCHeckDelay = 60
+Twitch.Chat.CheckChatMode = function ()
+    local now = os.time()
+    if now - Twitch.Chat.ChatModeLastChecked > Twitch.Chat.ChatModeCHeckDelay then
+        Twitch.Chat.ChatModeLastChecked = now
+        local headers = {
+        	["Client-ID"] = Twitch.client_id,
+    		["Authorization"] = "Bearer " .. Twitch.token,
+            ["Content-Type"] = "application/json"
+    	}
+        -- body = [[{"broadcaster_id":"884480140","title":"Heads or Tails?","choices":[{"title":"Heads"},{"title":"Tails"}],"channel_points_voting_enabled":true,"channel_points_per_vote":100,"duration":1800}]]
+        -- print("Body sent: "..body)
+
+        https.asyncRequest(
+            "https://api.twitch.tv/helix/chat/settings?broadcaster_id=" .. EngagementBait.mod.config.id,
+            {
+                method = "GET",
+                headers = headers,
+            },
+            Twitch.Chat.SetChatGlobals
+        )
+    end
+end
+
+
+Twitch.Chat.SetChatGlobals = function (code, body, headers)
+    if code ~= 200 then
+        print("Failed to start poll. Code:", code)
+        print("Response body:", body)   
+        return
+    end
+    print(body)
+end
+
 
 
 if not Twitch.Events then
@@ -534,4 +572,14 @@ Twitch.is_bot = function (name)
         end
     end
     return false
+end
+
+
+Twitch.urldecode = function (s)
+    s = string.gsub(s, '%%(%x%x)', function(h)
+        return string.char(tonumber(h, 16))
+    end)
+    -- Also replace '+' with ' ' for form-encoded data, if necessary
+    s = string.gsub(s, '+', ' ')
+    return s
 end

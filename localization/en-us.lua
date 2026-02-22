@@ -71,6 +71,17 @@ return {
 				} 
 			},
 		},
+		Other = {
+			eb_emote_seal = {
+				name = "Emote Seal",
+				text = {
+					'When scored, {X:mult,C:white} X#1# {} Mult',
+					'if in {C:attention}EmoteOnly{} mode',
+					'else {X:mult,C:white} X#2# {} Mult',
+					'{C:inactive}(Currently {X:mult,C:white}X#3# {C:inactive} Mult){}'
+				}
+			}
+		}
 	},
 	misc = {
         dictionary = {
@@ -86,6 +97,9 @@ return {
 			eb_config_poll_duration_tooltip = "Sets the duration for polls created by jokers like The Great Vote.",
 			
 		
+		},
+		labels = {
+			eb_emote_seal = "Emote Seal"
 		}
 	}
 
