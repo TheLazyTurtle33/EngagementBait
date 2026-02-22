@@ -37,7 +37,7 @@ SMODS.Joker {
     end,
 
     add_to_deck = function (self, card, deck)
-        card.ability.extra.secret = "temp"
+        card.ability.extra.secret = self.RandomWord()
         Twitch.Chat.register_callback(card, self.chat)
     end,
 
@@ -65,7 +65,17 @@ SMODS.Joker {
             offset = { x = 0, y = -1.5 },
             colour = c,
         })
-    end
+    end,
 
+    RandomWord = function ()
+        local list = io.open(EngagementBait.mod.path .. "Words/" .. EngagementBait.mod.config.wordlist .. ".txt", "r"):read("*a")
+        local words = {}
+        for s in string.gmatch(list, "([^\r\n]+)") do
+            table.insert(words, s)
+        end
+        local index = pseudorandom("the_secret",0,#words)
+        print(words[index])
+        return words[index]
+    end
 
 }
