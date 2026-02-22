@@ -102,9 +102,9 @@ SMODS.Joker {
         end
         
         if context.blind_defeated then
-            local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
-            print(eff)
-            self.poll_ended(card, eff)
+            -- local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
+            -- print(eff)
+            self.poll_ended(card, {text = "Self Destruct"})
         end
         
 
@@ -115,18 +115,7 @@ SMODS.Joker {
 
             for i, effect in ipairs(card.ability.extra.active) do
                 -- effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = nil, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0}
-                if effect.self_destruct then
-                    attention_text({
-                            text = "Get Fucked",
-                            scale = 0.5,
-                            hold = 3,
-                            fade = 3,
-                            major = card,
-                            colour = G.C.RED,
-                        })
-                    SMODS.destroy_cards(card, nil, nil, false)
-                    return
-                end
+
 
                 ret = self.murge_returns(ret, effect)
 
@@ -296,6 +285,29 @@ SMODS.Joker {
                     if choice.effect.extra_slots.consumeable then
                         G.consumeables.config.card_limit = G.consumeables.config.card_limit + choice.effect.extra_slots.consumeable
                     end
+                end
+                if choice.effect.self_destruct then
+                G.E_MANAGER:add_event(Event({
+                    delay = 1,
+                    func = function()
+                            attention_text({
+                                    text = "Get Fucked",
+                                    scale = 0.5,
+                                    hold = 3,
+                                    fade = 3,
+                                    major = card,
+                                    colour = G.C.RED,
+                                })
+                        G.E_MANAGER:add_event(Event({
+                            delay = 2.5,
+                            func = function()
+                                    SMODS.destroy_cards(card, nil, nil, false)
+                                return true
+                            end
+                        }))
+                        return true
+                    end
+                }))
                 end
 
 
