@@ -101,11 +101,11 @@ SMODS.Joker {
 
         end
         
-        if context.blind_defeated then
-            -- local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
-            -- print(eff)
-            self.poll_ended(card, {text = "Self Destruct"})
-        end
+        -- if context.blind_defeated then
+        --     -- local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
+        --     -- print(eff)
+        --     self.poll_ended(card, {text = "Self Destruct"})
+        -- end
         
 
         

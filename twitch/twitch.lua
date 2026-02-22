@@ -203,21 +203,20 @@ end
 
 Twitch.startTime = nil
 Twitch.set_start_time = function ()
-    
-	local headers = {
-    	["Client-ID"] = Twitch.client_id,
-   		["Authorization"] = "Bearer " .. Twitch.token
-	}
-    https.asyncRequest(
-        "https://api.twitch.tv/helix/streams?user_id=" .. EngagementBait.mod.config.id,
-        {
-            method = "GET",
-            headers = headers
-        },
-        Twitch.set_start_time_global
-    )
-
-
+    if EngagementBait.mod.config and EngagementBait.mod.config.id then
+        local headers = {
+            ["Client-ID"] = Twitch.client_id,
+            ["Authorization"] = "Bearer " .. Twitch.token
+        }
+        https.asyncRequest(
+            "https://api.twitch.tv/helix/streams?user_id=" .. EngagementBait.mod.config.id,
+            {
+                method = "GET",
+                headers = headers
+            },
+            Twitch.set_start_time_global
+        )
+    end
 end
 
 Twitch.set_start_time_global = function (code, body, headers)
@@ -282,7 +281,7 @@ Twitch.start_poll = function (question, options, duration)
             {
                 method = "POST",
                 headers = headers,
-                body = body
+                data = body
             },
             Twitch.CheckSucsess
         )
