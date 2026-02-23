@@ -259,59 +259,53 @@ Twitch.get_stream_duration = function ()
 end
 
 
-
-
 Twitch.start_poll = function (question, options, duration)
-        -- local headers = {
-        -- 	["Client-ID"] = Twitch.client_id,
-    	-- 	["Authorization"] = "Bearer " .. Twitch.token,
-        --     ["Content-Type"] = "application/json"
-    	-- }
-        -- local body = json.encode({
-        --     broadcaster_id = EngagementBait.mod.config.id,
-        --     title = question,
-        --     choices = options,
-        --     duration = duration
-        -- })
-        -- -- print("Body sent: "..body)
-        
-        -- https.asyncRequest(
-        --     "https://api.twitch.tv/helix/polls",
-        --     {
-        --         method = "POST",
-        --         headers = headers,
-        --         body = body
-        --     },
-        --     Twitch.CheckSucsess
-        -- )
-
-
-
         local headers = {
-        	["Client-ID"] = "3697aa4dd04f7212a28052cc7a98c2",
-    		["Authorization"] = "Bearer " .. "a92ea0ab9c9a903",
+        	["Client-ID"] = Twitch.client_id,
+    		["Authorization"] = "Bearer " .. Twitch.token,
             ["Content-Type"] = "application/json"
     	}
         local body = json.encode({
-            duration = duration,
-            choices = options,
+            broadcaster_id = EngagementBait.mod.config.id,
             title = question,
-            broadcaster_id = "15510855",
+            choices = options,
+            duration = duration
         })
-        
-        -- body = [[{"broadcaster_id":"884480140","title":"Heads or Tails?","choices":[{"title":"Heads"},{"title":"Tails"}],"channel_points_voting_enabled":true,"channel_points_per_vote":100,"duration":1800}]]
-        https.request(
-            "http://127.0.0.1:8080/mock/polls",
+
+        https.asyncRequest(
+            "https://api.twitch.tv/helix/polls",
             {
                 method = "POST",
                 headers = headers,
                 data = body
-            }
-            -- Twitch.CheckSucsess
+            },
+            Twitch.CheckSucsess
         )
+
+
+        -- headers = {
+        -- 	["Client-ID"] = "3697aa4dd04f7212a28052cc7a98c2",
+    	-- 	["Authorization"] = "Bearer " .. "a92ea0ab9c9a903",
+        --     ["Content-Type"] = "application/json"
+    	-- }
+        -- body = json.encode({
+        --     duration = duration,
+        --     choices = options,
+        --     title = question,
+        --     broadcaster_id = "15510855",
+        -- })
+
+
+        -- https.asyncRequest(
+        --     "http://127.0.0.1:8080/mock/polls",
+        --     {
+        --         method = "POST",
+        --         headers = headers,
+        --         data = body
+        --     },
+        --     Twitch.CheckSucsess
+        -- )
 end
-
-
 
 Twitch.CheckSucsess = function (code, body, headers)
     if code ~= 200 then
