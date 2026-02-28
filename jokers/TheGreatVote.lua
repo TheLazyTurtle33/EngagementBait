@@ -7,31 +7,31 @@ SMODS.Joker {
             active = {},
             choices = { -- 5
                 {text = "example", weight = 0, effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = {}, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0, level_ups = 0, balance = false, staking = true}},
-                -- {text = "Nothing...",       weight = 0.80, effect = {},                                                 staking = true  },
-                -- {text = "Self Destruct",    weight = 0.01, effect = {self_destruct = true},                             staking = false },
-                -- {text = "+100 Chips",       weight = 0.90, effect = {chips = 100},                                      staking = true  },
+                {text = "Nothing...",       weight = 0.80, effect = {},                                                 staking = true  },
+                {text = "Self Destruct",    weight = 0.01, effect = {self_destruct = true},                             staking = false },
+                {text = "+100 Chips",       weight = 0.90, effect = {chips = 100},                                      staking = true  },
                 {text = "X2 Chips",         weight = 0.50, effect = {xchips = 2},                                       staking = true  },
-                -- {text = "+50 Mult",         weight = 0.85, effect = {mult = 50},                                        staking = true  },
+                {text = "+50 Mult",         weight = 0.85, effect = {mult = 50},                                        staking = true  },
                 {text = "X2 mult",          weight = 0.50, effect = { xmult = 2},                                       staking = true  },
-                -- {text = "X5 mult",          weight = 0.40, effect = {xmult = 5},                                        staking = true  },
-                -- {text = "X0.75 mult",       weight = 0.40, effect = {xmult = 0.75},                                     staking = true  },
-                -- {text = "-50 Chips",        weight = 0.40, effect = {chips = -50},                                      staking = true  },
-                -- {text = "X0.5 Chips",       weight = 0.30, effect = {xchips = 0.5},                                     staking = true  },
-                -- {text = "PhotoChad",        weight = 0.10, effect = {joker_copy = {"j_photograph","j_hanging_chad"}},   staking = false },
-                -- {text = "Unesless",         weight = 0.20, effect = {joker_copy = {"j_chicot"}},                        staking = false },
-                -- {text = "Hand size +1",     weight = 0.50, effect = {extra_slots = {hand = 1}},                         staking = true  },
-                -- {text = "Hand size -1",     weight = 0.50, effect = {extra_slots = {hand = -1}},                        staking = true  },
-                -- {text = "LEVEL UP!",        weight = 0.10, effect = {level_ups = 1},                                    staking = true  },
-                -- {text = "LEVEL DOWN!",      weight = 0.08, effect = {level_ups = -1},                                   staking = true  },
-                -- {text = "Yes but choice 1", weight = 0.02, effect = {xchips = 2},                                       staking = true  },
-                -- {text = "Yes but choice 2", weight = 0.02, effect = {xmult = 2},                                        staking = true  },
-                -- {text = "Yes but choice 3", weight = 0.02, effect = {xmult = 3},                                        staking = true  },
-                -- {text = "Yes but choice 4", weight = 0.02, effect = {xmult = 4},                                        staking = true  },
-                -- {text = "Yes but choice 5", weight = 0.02, effect = {xmult = 5},                                        staking = true  },
+                {text = "X5 mult",          weight = 0.40, effect = {xmult = 5},                                        staking = true  },
+                {text = "X0.75 mult",       weight = 0.40, effect = {xmult = 0.75},                                     staking = true  },
+                {text = "-50 Chips",        weight = 0.40, effect = {chips = -50},                                      staking = true  },
+                {text = "X0.5 Chips",       weight = 0.30, effect = {xchips = 0.5},                                     staking = true  },
+                {text = "Looks Inside",        weight = 0.10, effect = {joker_copy = {"j_photograph","j_hanging_chad"}},   staking = false },
+                {text = "Unesless",         weight = 0.20, effect = {joker_copy = {"j_chicot"}},                        staking = false },
+                {text = "Hand size +1",     weight = 0.50, effect = {extra_slots = {hand = 1}},                         staking = true  },
+                {text = "Hand size -1",     weight = 0.50, effect = {extra_slots = {hand = -1}},                        staking = true  },
+                {text = "LEVEL UP!",        weight = 0.10, effect = {level_ups = 1},                                    staking = true  },
+                {text = "LEVEL DOWN!",      weight = 0.08, effect = {level_ups = -1},                                   staking = true  },
+                {text = "Yes but choice 1", weight = 0.02, effect = {xchips = 2},                                       staking = true  },
+                {text = "Yes but choice 2", weight = 0.02, effect = {xmult = 2},                                        staking = true  },
+                {text = "Yes but choice 3", weight = 0.02, effect = {xmult = 3},                                        staking = true  },
+                {text = "Yes but choice 4", weight = 0.02, effect = {xmult = 4},                                        staking = true  },
+                {text = "Yes but choice 5", weight = 0.02, effect = {xmult = 5},                                        staking = true  },
                 {text = "Plasma",           weight = 0.20, effect = {balance = true},                                   staking = false },
-                -- {text = "ReTriggered",      weight = 0.03, effect = {repetition = 1},                                   staking = false },
-                {text = "Negative",         weight = 0.10, effect = {extra_slots = {joker = 1}},                        staking = false },
-                {text = "Positive",         weight = 0.10, effect = {extra_slots = {joker = -1}},                       staking = false },
+                {text = "Again!",           weight = 0.03, effect = {repetition = 1},                                   staking = true },
+                {text = "Negative",         weight = 0.10, effect = {extra_slots = {joker = 1}},                        staking = true },
+                {text = "Positive",         weight = 0.10, effect = {extra_slots = {joker = -1}},                       staking = true },
 
 
 
@@ -101,22 +101,21 @@ SMODS.Joker {
 
         end
         
-        -- if context.blind_defeated then
-        --     -- local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
-        --     -- print(eff)
-        --     self.poll_ended(card, {text = "Self Destruct"})
-        -- end
+        if context.blind_defeated then
+            -- local eff = self.get_weighted_choices(card.ability.extra.choices, 1)[1]
+            -- print(eff)
+            -- self.poll_ended(card, {text = "Again!"})
+            -- self.poll_ended(card, {text = "+100 Chips"})
+        end
         
-
         
-        if context.joker_main and card.ability.extra.active and card.ability.extra.active ~= {} then
+        local ret = {}
+        for i, effect in ipairs(card.ability.extra.active) do
+        -- effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = nil, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0}
+        
+            if context.joker_main and card.ability.extra.active and card.ability.extra.active ~= {} then
 
-            local ret = {}
-
-            for i, effect in ipairs(card.ability.extra.active) do
-                -- effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = nil, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0}
-
-
+                -- effect.repetition = nil
                 ret = self.murge_returns(ret, effect)
 
 
@@ -125,12 +124,15 @@ SMODS.Joker {
                     card.sell_cost_label = tostring(card.sell_cost)
                 end
             end
-            print(ret)
-            return ret
-        end
 
-        local ret = {}
-        for i, effect in ipairs(card.ability.extra.active) do
+
+            if context.repetition and context.cardarea == G.play and effect.repetition then
+                ret = self.murge_returns(ret, {
+                    repetitions = effect.repetition
+                })
+            end
+
+
             if effect.joker_copy then
                 for j, _ in ipairs(effect.joker_copy) do
                     if effect.joker_copy[j] == "j_photograph" then
