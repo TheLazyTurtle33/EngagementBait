@@ -75,4 +75,11 @@ SMODS.Joker {
             end
         end
     end,
+    set_badges = function(self, card, badges)
+        if EngagementBait.mod.config.linked then
+            badges[#badges+1] = create_badge("Linked", G.C.GREEN, G.C.BLACK, 1.2 )
+        else
+            badges[#badges+1] = create_badge("Not Linked", G.C.RED, G.C.BLACK, 1.2 )
+        end
+ 	end,
 }

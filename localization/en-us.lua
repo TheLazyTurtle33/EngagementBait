@@ -71,9 +71,9 @@ return {
 				} 
 			},
 		},
-		Other = {
-			eb_emote_seal = {
-				name = "Emote Seal",
+		Enhanced = {
+			m_eb_emote = {
+				name = "Emote Mode",
 				text = {
 					'When scored, {X:mult,C:white} X#1# {} Mult',
 					'if in {C:attention}EmoteOnly{} mode',
@@ -99,7 +99,7 @@ return {
 		
 		},
 		labels = {
-			eb_emote_seal = "Emote Seal"
+			eb_emote = "Emote Mode"
 		}
 	}
 

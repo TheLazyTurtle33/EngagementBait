@@ -17,8 +17,8 @@ SMODS.Joker {
                 {text = "X0.75 mult",       weight = 0.40, effect = {xmult = 0.75},                                     staking = true  },
                 {text = "-50 Chips",        weight = 0.40, effect = {chips = -50},                                      staking = true  },
                 {text = "X0.5 Chips",       weight = 0.30, effect = {xchips = 0.5},                                     staking = true  },
-                {text = "Looks Inside",        weight = 0.10, effect = {joker_copy = {"j_photograph","j_hanging_chad"}},   staking = false },
-                {text = "Unesless",         weight = 0.20, effect = {joker_copy = {"j_chicot"}},                        staking = false },
+                {text = "Looks Inside",     weight = 0.10, effect = {joker_copy = {"j_photograph","j_hanging_chad"}},   staking = false },
+                {text = "Useless",          weight = 0.20, effect = {joker_copy = {"j_chicot"}},                        staking = false },
                 {text = "Hand size +1",     weight = 0.50, effect = {extra_slots = {hand = 1}},                         staking = true  },
                 {text = "Hand size -1",     weight = 0.50, effect = {extra_slots = {hand = -1}},                        staking = true  },
                 {text = "LEVEL UP!",        weight = 0.10, effect = {level_ups = 1},                                    staking = true  },
@@ -29,9 +29,9 @@ SMODS.Joker {
                 {text = "Yes but choice 4", weight = 0.02, effect = {xmult = 4},                                        staking = true  },
                 {text = "Yes but choice 5", weight = 0.02, effect = {xmult = 5},                                        staking = true  },
                 {text = "Plasma",           weight = 0.20, effect = {balance = true},                                   staking = false },
-                {text = "Again!",           weight = 0.03, effect = {repetition = 1},                                   staking = true },
-                {text = "Negative",         weight = 0.10, effect = {extra_slots = {joker = 1}},                        staking = true },
-                {text = "Positive",         weight = 0.10, effect = {extra_slots = {joker = -1}},                       staking = true },
+                {text = "Again!",           weight = 0.03, effect = {repetition = 1},                                   staking = true  },
+                {text = "Negative",         weight = 0.10, effect = {extra_slots = {joker = 1}},                        staking = true  },
+                {text = "Positive",         weight = 0.10, effect = {extra_slots = {joker = -1}},                       staking = true  },
 
 
 
@@ -401,6 +401,13 @@ SMODS.Joker {
 
         return results
     end,
+    set_badges = function(self, card, badges)
+        if EngagementBait.mod.config.linked then
+            badges[#badges+1] = create_badge("Linked", G.C.GREEN, G.C.BLACK, 1.2 )
+        else
+            badges[#badges+1] = create_badge("Not Linked", G.C.RED, G.C.BLACK, 1.2 )
+        end
+ 	end,
 
 
 

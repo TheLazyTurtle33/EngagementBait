@@ -14,6 +14,15 @@ SMODS.Atlas({
     path = "jokers.png"
 })
 
+SMODS.Atlas({
+    key = "Enhancement",
+    px = 71,
+    py = 95,
+    path = "enhancement.png",
+    atlas_table = 'ANIMATION_ATLAS',
+    frames = 13
+})
+
 -- Load all joker files from the jokers folder
 function EngagementBait.load_files(dir)
     local files = NFS.getDirectoryItems(SMODS.current_mod.path .. dir)
@@ -27,7 +36,7 @@ end
 EngagementBait.load_files("twitch")
 EngagementBait.load_files("ui")
 EngagementBait.load_files("jokers")
-EngagementBait.load_files("seals")
+EngagementBait.load_files("enhancement")
 
 
 Twitch.load()
