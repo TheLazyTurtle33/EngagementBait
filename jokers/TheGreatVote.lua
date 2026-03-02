@@ -8,7 +8,7 @@ SMODS.Joker {
             choices = { -- 5
                 {text = "example", weight = 0, effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = {}, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0, level_ups = 0, balance = false, staking = true}},
                 {text = "Nothing...",       weight = 0.80, effect = {},                                                 staking = true  },
-                {text = "Self Destruct",    weight = 0.01, effect = {self_destruct = true},                             staking = false },
+                {text = "Self Destruct",    weight = 0.901, effect = {self_destruct = true},                             staking = false },
                 {text = "+100 Chips",       weight = 0.90, effect = {chips = 100},                                      staking = true  },
                 {text = "X2 Chips",         weight = 0.50, effect = {xchips = 2},                                       staking = true  },
                 {text = "+50 Mult",         weight = 0.85, effect = {mult = 50},                                        staking = true  },
@@ -68,8 +68,8 @@ SMODS.Joker {
     
     rarity = 4,
     cost = 20,
-    unloxed = true,
-    descover = false,
+    unlocked  = true,
+    discovered  = false,
     blueprint_compat = false,
     eternal_compat = true,
     calculate = function (self, card, context)
