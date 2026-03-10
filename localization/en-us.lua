@@ -84,6 +84,9 @@ return {
 		}
 	},
 	misc = {
+        challenge_names = {
+            c_eb_the_great_vote = "The Great Vote",
+		},
         dictionary = {
 			eb_config_header = "Engagement Bait: Configuration",
 			eb_config_link_account = "Link Twitch",
@@ -95,12 +98,15 @@ return {
 			eb_config_linked_account_tooltip = "Shows the name of the currently linked Twitch account.",
 			eb_config_restart_server_tooltip = "Restarts the local server. Use this if the mod isn't responding to Twitch or if you changed your Twitch account.",
 			eb_config_poll_duration_tooltip = "Sets the duration for polls created by jokers like The Great Vote.",
-			
-		
 		},
 		labels = {
 			eb_emote = "Emote Mode"
-		}
+		},
+		v_text = {
+            ch_c_the_great_vote = { "You start with The Great Vote. thats it." },
+		},
+
+	
 	}
 
 }

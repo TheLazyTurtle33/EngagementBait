@@ -37,6 +37,7 @@ EngagementBait.load_files("twitch")
 EngagementBait.load_files("ui")
 EngagementBait.load_files("jokers")
 EngagementBait.load_files("enhancement")
+EngagementBait.load_files("challenges")
 
 
 Twitch.load()
