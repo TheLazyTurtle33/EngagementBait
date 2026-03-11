@@ -49,7 +49,7 @@ Twitch.startServer = function ()
 end
 
 function G.FUNCS.EngagementBaitTwitchRestartServer ()
-    if Twitch.server ~= nil then
+    if Twitch.server then
         print("Killing Twitch server...")
         Twitch.server:release()
     end
@@ -314,17 +314,21 @@ Twitch.CheckSucsess = function (code, body, headers)
         return
     end
 end
-
+Twitch.poll_ids = {}
 Twitch.get_poll_result = function ()
     local ch = love.thread.getChannel("twitch_poll")
     if ch:peek() then
         local data_raw = ch:pop()
-        print("raw data: ".. data_raw)
+        -- print("raw data: ".. data_raw)
         local data = json.decode(data_raw)
         if data then
             print("Poll has ended. Processing results...")
             local winning = { text = "No votes", votes = 0, tie = {} }
             for _, choice in ipairs(data) do
+                if table.contains(Twitch.poll_ids, choice.id) then
+                    return
+                end
+                table.insert(Twitch.poll_ids, choice.id)
                 if choice.votes > winning.votes then
                     winning = choice
                     winning.tie = {}
@@ -337,26 +341,31 @@ Twitch.get_poll_result = function ()
                 winning = winning.tie[ran]  
             end
             print("Winning choice:", winning.title, "with", winning.votes, "votes")
-            if Twitch.poll_end_callback.card and Twitch.poll_end_callback.callback then
-                Twitch.poll_end_callback.callback(Twitch.poll_end_callback.card, winning)
+            for i, callback in ipairs(Twitch.poll_end_callback) do
+                if callback.card and callback.callback then
+                    callback.callback(callback.card, winning)
+                end
             end
         end
     end
 
 end
-Twitch.poll_end_callback = {
+Twitch.poll_end_callback = {{
     card = nil,
     callback = function (card, data) end
-}
+}}
 
 Twitch.register_poll_end_callback = function (card, callback)
-    Twitch.poll_end_callback.card = card
-    Twitch.poll_end_callback.callback = callback
+    table.insert(Twitch.poll_end_callback, { card = card, callback = callback })
 end
 
-Twitch.unregister_poll_end_callback = function ()
-    Twitch.poll_end_callback.card = nil
-    Twitch.poll_end_callback.callback = function (card, data) end
+Twitch.unregister_poll_end_callback = function (card)
+        for i, cb in ipairs(Twitch.poll_end_callback) do
+        if cb.card == card then
+            table.remove(Twitch.poll_end_callback)
+            break
+        end
+    end
 end
 
 

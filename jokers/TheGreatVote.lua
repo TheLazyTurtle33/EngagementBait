@@ -3,75 +3,92 @@ SMODS.Joker {
     atlas = 'Joker', pos = { x = 7, y = 0 },
     config = {
        extra = {
-            text = "?????????",
+            effect_count = 0,
+            effects = {
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+                "????????????????",
+            },
             active = {},
             choices = { -- 5
                 {text = "example", weight = 0, effect = {chips = 0, xchips = 0, mult = 0, xmult = 0, dollars = 0, sell_price_dif = 0, self_destruct = false, joker_copy = {}, extra_slots = {joker = 0, consumeable = 0, hand = 0}, hands_dif = 0, discgard_dif = 0, level_ups = 0, balance = false, staking = true}},
-                {text = "Nothing...",       weight = 0.80, effect = {},                                                 staking = true  },
-                {text = "Self Destruct",    weight = 0.901, effect = {self_destruct = true},                             staking = false },
-                {text = "+100 Chips",       weight = 0.90, effect = {chips = 100},                                      staking = true  },
-                {text = "X2 Chips",         weight = 0.50, effect = {xchips = 2},                                       staking = true  },
-                {text = "+50 Mult",         weight = 0.85, effect = {mult = 50},                                        staking = true  },
-                {text = "X2 mult",          weight = 0.50, effect = { xmult = 2},                                       staking = true  },
-                {text = "X5 mult",          weight = 0.40, effect = {xmult = 5},                                        staking = true  },
-                {text = "X0.75 mult",       weight = 0.40, effect = {xmult = 0.75},                                     staking = true  },
-                {text = "-50 Chips",        weight = 0.40, effect = {chips = -50},                                      staking = true  },
-                {text = "X0.5 Chips",       weight = 0.30, effect = {xchips = 0.5},                                     staking = true  },
-                {text = "Looks Inside",     weight = 0.10, effect = {joker_copy = {"j_photograph","j_hanging_chad"}},   staking = false },
-                {text = "Useless",          weight = 0.20, effect = {joker_copy = {"j_chicot"}},                        staking = false },
-                {text = "Hand size +1",     weight = 0.50, effect = {extra_slots = {hand = 1}},                         staking = true  },
-                {text = "Hand size -1",     weight = 0.50, effect = {extra_slots = {hand = -1}},                        staking = true  },
-                {text = "LEVEL UP!",        weight = 0.10, effect = {level_ups = 1},                                    staking = true  },
-                {text = "LEVEL DOWN!",      weight = 0.08, effect = {level_ups = -1},                                   staking = true  },
-                {text = "Yes but choice 1", weight = 0.02, effect = {xchips = 2},                                       staking = true  },
-                {text = "Yes but choice 2", weight = 0.02, effect = {xmult = 2},                                        staking = true  },
-                {text = "Yes but choice 3", weight = 0.02, effect = {xmult = 3},                                        staking = true  },
-                {text = "Yes but choice 4", weight = 0.02, effect = {xmult = 4},                                        staking = true  },
-                {text = "Yes but choice 5", weight = 0.02, effect = {xmult = 5},                                        staking = true  },
-                {text = "Plasma",           weight = 0.20, effect = {balance = true},                                   staking = false },
-                {text = "Again!",           weight = 0.03, effect = {repetition = 1},                                   staking = true  },
-                {text = "Negative",         weight = 0.10, effect = {extra_slots = {joker = 1}},                        staking = true  },
-                {text = "Positive",         weight = 0.10, effect = {extra_slots = {joker = -1}},                       staking = true  },
-
-
-
-
-
+                {text = "    Nothing...  ", weight = 0.80, effect = { },                                                  staking = true  },
+                {text = "  Self Destruct ", weight = 0.01, effect = { self_destruct = true },                             staking = false },
+                {text = "   +100 Chips   ", weight = 0.90, effect = { chips = 100 },                                      staking = true  },
+                {text = "    X2 Chips    ", weight = 0.50, effect = { xchips = 2 },                                       staking = true  },
+                {text = "    +50 Mult    ", weight = 0.85, effect = { mult = 50 },                                        staking = true  },
+                {text = "     X2 mult    ", weight = 0.50, effect = { xmult = 2 },                                        staking = true  },
+                {text = "     X5 mult    ", weight = 0.40, effect = { xmult = 5 },                                        staking = true  },
+                {text = "   X0.75 mult   ", weight = 0.40, effect = { xmult = 0.75 },                                     staking = true  },
+                {text = "    -50 Chips   ", weight = 0.40, effect = { chips = -50 },                                      staking = true  },
+                {text = "   X0.5 Chips   ", weight = 0.30, effect = { xchips = 0.5 },                                     staking = true  },
+                {text = "  Looks Inside  ", weight = 0.10, effect = { joker_copy = {"j_photograph","j_hanging_chad"} },   staking = false },
+                {text = "     Useless    ", weight = 0.20, effect = { joker_copy = {"j_chicot"} },                        staking = false },
+                {text = "  Hand size +1  ", weight = 0.50, effect = { extra_slots = {hand = 1} },                         staking = true  },
+                {text = "  Hand size -1  ", weight = 0.50, effect = { extra_slots = {hand = -1} },                        staking = true  },
+                {text = "    LEVEL UP!   ", weight = 0.10, effect = { level_ups = 1 },                                    staking = true  },
+                {text = "   LEVEL DOWN!  ", weight = 0.08, effect = { level_ups = -1 },                                   staking = true  },
+                {text = "Yes but choice 1", weight = 0.02, effect = { xchips = 2 },                                       staking = true  },
+                {text = "Yes but choice 2", weight = 0.02, effect = { xmult = 2 },                                        staking = true  },
+                {text = "Yes but choice 3", weight = 0.02, effect = { xmult = 3 },                                        staking = true  },
+                {text = "Yes but choice 4", weight = 0.02, effect = { xmult = 4 },                                        staking = true  },
+                {text = "Yes but choice 5", weight = 0.02, effect = { xmult = 5 },                                        staking = true  },
+                {text = "     Plasma     ", weight = 0.20, effect = { balance = true },                                   staking = false },
+                {text = "     Again!     ", weight = 0.03, effect = { repetition = 1 },                                   staking = true  },
+                {text = "    Negative    ", weight = 0.10, effect = { extra_slots = {joker = 1} },                        staking = true  },
+                {text = "    Positive    ", weight = 0.10, effect = { extra_slots = {joker = -1} },                       staking = true  },
 
             },
     	}
     },
     loc_vars = function (self, info_queue, card)
-            local text = card.ability.extra.text
-            local size = 0.9
-            local font = G.LANG.font
-            local max_text_width = 2 - 2*0.05 - 4*0.03*size - 2*0.03
-            local calced_text_width = 0
-            -- Math reproduced from DynaText:update_text
-            for _, c in utf8.chars(text) do
-                local tx = font.FONT:getWidth(c)*(0.33*size)*G.TILESCALE*font.FONTSCALE + 2.7*1*G.TILESCALE*font.FONTSCALE
-                calced_text_width = calced_text_width + tx/(G.TILESIZE*G.TILESCALE)
+        local colors = {}
+        for i = 1, 39, 2  do
+            if (i+1)/2 == card.ability.extra.effect_count + 1 then
+                table.insert(colors, G.C.UI.TEXT_DARK)
+                table.insert(colors, G.C.WHITE)
+            else
+                table.insert(colors, G.C.WHITE)
+                table.insert(colors, G.C.UI.TEXT_DARK)
             end
-            local scale_fac = 1
+        end
+        local vars = card.ability.extra.effects
+        vars.colours = colors
+
+        info_queue[#info_queue+1] = {
+            set = "Other",
+            key = "eb_the_great_vote_effects",
+            vars = vars
+        }
         return {
            vars = {
-        },
-        main_end = {{n=G.UIT.R, config={align = "cm"}, nodes={
-                {n=G.UIT.R, config={align = "cm", colour = G.C.CLEAR, r = 0.1, minw = 2, minh = 0.36, emboss = 0.05, padding = 0.03*size}, nodes={
-                  {n=G.UIT.B, config={h=0.1,w=0.03}},
-                  {n=G.UIT.O, config={object = DynaText({string = text or 'ERROR', colours = {G.C.BLACK},float = true, shadow = true, offset_y = -0.05, silent = true, spacing = 1*scale_fac, scale = 0.33*size*scale_fac, marquee = calced_text_width > max_text_width, maxw = max_text_width})}},
-                  {n=G.UIT.B, config={h=0.1,w=0.03}},
-                }}
-              }}}
-    }
+           },
+        }
     end,
-    
+
     rarity = 4,
     cost = 20,
     unlocked  = true,
     discovered  = false,
     blueprint_compat = false,
-    eternal_compat = true,
+    eternal_compat = false,
     calculate = function (self, card, context)
         if context.setting_blind and not context.skip_blind then
             local choices = self.get_weighted_choices(card.ability.extra.choices, 5)
@@ -95,10 +112,6 @@ SMODS.Joker {
             end
             
             return ret
-
-            
-
-
         end
         
         if context.blind_defeated then
@@ -260,11 +273,9 @@ SMODS.Joker {
         for i, choice in ipairs(card.ability.extra.choices) do
             if choice.text == name then
                 table.insert(card.ability.extra.active, choice.effect)
-                if card.ability.extra.text == "?????????" then
-                    card.ability.extra.text = choice.text
-                else
-                    card.ability.extra.text = card.ability.extra.text .. " & " .. choice.text
-                end
+                card.ability.extra.effect_count = card.ability.extra.effect_count + 1
+                if card.ability.extra.effect_count >= 21 then card.ability.extra.effect_count = 1 end
+                card.ability.extra.effects[card.ability.extra.effect_count] = choice.text
                 if not choice.staking then
                     table.remove(card.ability.extra.choices, i) -- so it cant be chosen again
                 end
@@ -326,7 +337,7 @@ SMODS.Joker {
     end,
 
     remove_from_deck = function (self, card, from_debuff)
-        Twitch.unregister_poll_end_callback()
+        Twitch.unregister_poll_end_callback(card)
         if card.ability.extra.active and card.ability.extra.active ~= {} then
             for i, effect in ipairs(card.ability.extra.active) do
                 if effect.extra_slots then

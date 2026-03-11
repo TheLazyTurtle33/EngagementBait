@@ -49,9 +49,10 @@ return {
 			j_eb_the_great_vote = {
 				name = "The Great Vote",
 				text  = {
-					'At the start of every round',
+					'At the {C:attention}START{} of every round',
 					'create a poll and chat choise',
-					'what new power this joker get'
+					'what new {C:attention}POWER{} this joker gets',
+					'{C:inactive}(max 20. new powers override the old ones)'
 				}
 			},
 			j_eb_the_secret = {
@@ -81,7 +82,25 @@ return {
 					'{C:inactive}(Currently {X:mult,C:white}X#3# {C:inactive} Mult){}'
 				}
 			}
+		},
+		Other = {
+			eb_the_great_vote_effects = {
+				name = "Effects:",
+				text = {
+					   '{B:1,V:2}#1#{} | {B:3,V:4}#2#{}',
+					   '{B:5,V:6}#3#{} | {B:7,V:8}#4#{}',
+					  '{B:9,V:10}#5#{} | {B:11,V:12}#6#{}',
+					 '{B:13,V:14}#7#{} | {B:15,V:16}#8#{}',
+					 '{B:17,V:18}#9#{} | {B:19,V:20}#10#{}',
+					'{B:21,V:22}#11#{} | {B:23,V:24}#12#{}',
+					'{B:25,V:26}#13#{} | {B:27,V:28}#14#{}',
+					'{B:29,V:30}#15#{} | {B:31,V:32}#16#{}',
+					'{B:33,V:34}#17#{} | {B:35,V:36}#18#{}',
+					'{B:37,V:38}#19#{} | {B:39,V:40}#20#{}',
+				}
+			}
 		}
+
 	},
 	misc = {
         challenge_names = {
