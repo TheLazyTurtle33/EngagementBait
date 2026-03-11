@@ -1,16 +1,5 @@
 local https = require("SMODS.https")
-
 local json = require("json")
-
-if not Twitch then
-    --@class
-    Twitch = {}
-    Twitch.token = "";
-    Twitch.client_id = "tztqbknddp0rfm2wmfkjvckjc4in5j"
-    Twitch.channel = nil
-    Twitch.user_id = -1
-end
-
 
 if not Twitch.Chat then
     Twitch.Chat = {}

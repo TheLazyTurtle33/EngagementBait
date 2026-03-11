@@ -33,6 +33,9 @@ function EngagementBait.load_files(dir)
     end
 end
 
+
+
+assert(SMODS.load_file(SMODS.current_mod.path .. "twitch/Twitch.lua"))
 EngagementBait.load_files("twitch")
 EngagementBait.load_files("ui")
 EngagementBait.load_files("jokers")

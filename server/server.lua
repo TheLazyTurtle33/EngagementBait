@@ -10,6 +10,11 @@ local server = assert(socket.bind("127.0.0.1", 3000))
 server:settimeout(60)
 
 while true do
+    local alive_request = love.thread.getChannel("alive"):peek()
+    if alive_request == "ping" then
+        love.thread.getChannel("alive"):clear()
+        love.thread.getChannel("alive"):push("alive")
+    end
     local client = server:accept()
     if not client then goto continue end
 
