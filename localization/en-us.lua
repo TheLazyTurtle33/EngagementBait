@@ -39,8 +39,8 @@ return {
 				 name = "Loooooog Stream",
 				 text  = {
 					'This Joker gains {C:blue}+#1#{} Chips',
-					'per min of stream duration',
-					'{C:inactive}(Currently {C:blue}+#2#{} {C:inactive}Chips){}'
+					'for every #2# seconds of stream duration',
+					'{C:inactive}(Currently {C:blue}+#3#{} {C:inactive}Chips){}'
 				}
 			},
 			-- j_eb_primer = { name = "Primeer", text  = {''} },

@@ -5,6 +5,7 @@ SMODS.Joker {
        extra = {
        		chip = 1,
             time = 0,
+            seconds = 60
     	}
     },
     loc_vars = function (self, info_queue, card)
@@ -12,7 +13,8 @@ SMODS.Joker {
         return {
            vars = {
             	card.ability.extra.chip,
-            	card.ability.extra.time * card.ability.extra.chip,
+            	card.ability.extra.seconds,
+            	math.floor(card.ability.extra.time / card.ability.extra.seconds) * card.ability.extra.time * card.ability.extra.chip,
            }
         }
     end,
@@ -29,7 +31,7 @@ SMODS.Joker {
         end
         if context.joker_main then
         	return {
-                extra = { chips = card.ability.extra.time * card.ability.extra.chip } }
+                extra = { chips = math.floor(card.ability.extra.time / card.ability.extra.seconds) * card.ability.extra.chip } }
         end
     end,
     set_badges = function(self, card, badges)

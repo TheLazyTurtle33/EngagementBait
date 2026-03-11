@@ -1,4 +1,5 @@
 return {
+	["status"] = "Not Conected",
 	["linked"] = false,
 	["oauth"] = "",
 	["username"] = "no one :c",

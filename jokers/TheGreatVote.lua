@@ -97,7 +97,7 @@ SMODS.Joker {
             for i, choice in ipairs(choices) do
                 table.insert(choice_formated, {title = choice.text})
             end
-            Twitch.start_poll("The Great Vote", choice_formated, math.floor(EngagementBait.mod.config.poll_duration))
+            Twitch.Events.Poll.start_poll("The Great Vote", choice_formated, math.floor(EngagementBait.mod.config.poll_duration))
             ret.message = "Vote Started!"
             
             if card.ability.extra.active and card.ability.extra.active ~= {} then
@@ -120,7 +120,7 @@ SMODS.Joker {
             -- self.poll_ended(card, {text = "Again!"})
             -- self.poll_ended(card, {text = "+100 Chips"})
         end
-        
+            
         
         local ret = {}
         for i, effect in ipairs(card.ability.extra.active) do
@@ -259,7 +259,7 @@ SMODS.Joker {
 
 
     update = function (self, card, context)
-        Twitch.get_poll_result()
+        Twitch.Events.Poll.check_for_end()
     end,
 
 
@@ -331,13 +331,13 @@ SMODS.Joker {
     end,
 
     add_to_deck = function (self, card, from_debuff)
-        Twitch.register_poll_end_callback(card, self.poll_ended)
+        Twitch.Events.Poll.register_callback(card, self.poll_ended)
         -- self.poll_ended(card,{text = "Photo"})
         -- self.poll_ended(card,{text = "Chad"})
     end,
 
     remove_from_deck = function (self, card, from_debuff)
-        Twitch.unregister_poll_end_callback(card)
+        Twitch.Events.Poll.remove_callback(card)
         if card.ability.extra.active and card.ability.extra.active ~= {} then
             for i, effect in ipairs(card.ability.extra.active) do
                 if effect.extra_slots then
@@ -356,7 +356,7 @@ SMODS.Joker {
     end,
 
     load = function (self, card)
-        Twitch.register_poll_end_callback(card, self.poll_ended)
+        Twitch.Events.Poll.register_callback(card, self.poll_ended)
     end,
 
     -- Returns `count` weighted random unique choices from `choices`
