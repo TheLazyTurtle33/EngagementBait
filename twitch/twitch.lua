@@ -66,6 +66,7 @@ Twitch = {
     end,
 
     --- tries to return the server and find it if its not correctly loaded
+    ---@diagnostic disable-next-line: undefined-doc-name
     --- @return Thread | nil
     get_server = function ()
         if not Twitch.server then
