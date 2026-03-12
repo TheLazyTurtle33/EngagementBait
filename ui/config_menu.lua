@@ -2,7 +2,8 @@ local config_toggles = {
 }
 
 local config_sliders = {
-	{ref_value = "poll_duration", label = "eb_config_poll_duration", min = 15, max = 300, step = 5},
+	{ref_value = "poll_duration", label = "eb_config_poll_duration", min = 15, max = 60, step = 5},
+	{ref_value = "prediction_window", label = "eb_config_prediction_window", min = 15, max = 60, step = 5},
 }
 
 local config_text_boxes = {
@@ -109,6 +110,7 @@ EngagementBait.config_page = function()
     create_menu_text_box(config_text_box_nodes, config_text_boxes[1])
     create_menu_option_cycle(config_option_cycle_nodes, {ref_value = "wordlistindex", label = "wordlist" })
 	create_menu_slider(config_slider_nodes, config_sliders[1])
+	create_menu_slider(config_slider_nodes, config_sliders[2])
     create_menu_button(config_button_nodes, config_buttons[1], "EngagementBaitLinkAccount")
     create_menu_button(config_button_nodes, config_buttons[2], "EngagementBaitLinkOpenDashboard")
 	create_menu_button(config_button_nodes, config_buttons[3], "EngagementBaitTwitchRestartServer")

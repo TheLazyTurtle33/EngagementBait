@@ -20,3 +20,6 @@ Emote (seal) - X2 mult in emote only mode, X0.75 in normal mode - by howf
 
 
 Anty Clanker Measures - +10 chips per chat, x0.5 current val per bot message
+
+
+Stremer luck - 

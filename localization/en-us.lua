@@ -55,6 +55,17 @@ return {
 					'{C:inactive}(max 20. new powers override the old ones)'
 				}
 			},
+			j_eb_the_predictor = {
+				name = "The Predictor",
+				text  = {
+					'At the {C:attention}START{} of every round',
+					'create a prediction and chat votes if',
+					'the final score is even or odd',
+					'if correct, gain {X:mult,C:white}X#1#{} mult.',
+					'if incorrect, lose {X:mult,C:white}X#2#{} mult.',
+					'{C:inactive}(currently {X:mult,C:white}X#3#{} {C:inactive}mult){}'
+				}
+			},
 			j_eb_the_secret = {
 				name = "The Secret", text  = {
 					'{X:mult,C:white} X#1# {} Mult',
@@ -113,10 +124,12 @@ return {
 			eb_config_linked_account = "Linked Twitch Account:",
 			eb_config_restart_server = "Restart Server",
 			eb_config_poll_duration = "Poll Duration (seconds)",
+			eb_config_prediction_window = "Prediction Window (seconds)",
 			eb_config_link_account_tooltip = "Links your Twitch account to the mod.",
 			eb_config_linked_account_tooltip = "Shows the name of the currently linked Twitch account.",
 			eb_config_restart_server_tooltip = "Restarts the local server. Use this if the mod isn't responding to Twitch or if you changed your Twitch account.",
 			eb_config_poll_duration_tooltip = "Sets the duration for polls created by jokers like The Great Vote.",
+			eb_config_prediction_window_tooltip = "Sets the window where poeple can make predictions created by jokers like The Predictor.",
 		},
 		labels = {
 			eb_emote = "Emote Mode"

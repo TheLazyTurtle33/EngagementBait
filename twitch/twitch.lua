@@ -9,8 +9,17 @@ Twitch = {
     server = nil,
     startTime = nil,
     Events = {},
+    scope = {
+      "chat:read",
+      "chat:edit",
+      "moderator:read:followers",
+      "channel:read:subscriptions",
+      "bits:read",
+      "channel:manage:polls",
+      "channel:manage:predictions",
+    },
 
-    --- posts datas to an endpoint.
+    --- posts data to an endpoint.
     --- @param endpoint string The endpoint to request.
     --- @param data string The json formated body.
     --- @param callback function The callback function to call when the request is completed.
@@ -31,6 +40,26 @@ Twitch = {
         )
     end,
 
+    --- patch data to an endpoint.
+    --- @param endpoint string The endpoint to request.
+    --- @param data string The json formated body.
+    --- @param callback function The callback function to call when the request is completed.
+    patch = function (endpoint, data, callback)
+        local headers = {
+        	["Client-ID"] = Twitch.client_id,
+    		["Authorization"] = "Bearer " .. Twitch.token,
+            ["Content-Type"] = "application/json"
+    	}
+        https.asyncRequest(
+            "https://api.twitch.tv/helix/" .. endpoint,
+            {
+                method = "PATCH",
+                headers = headers,
+                data = data
+            },
+            callback
+        )
+    end,
     
     --- posts datas to an endpoint.
     --- @param endpoint string The endpoint to request.
@@ -129,7 +158,7 @@ Twitch = {
 
     set_start_time = function ()
         if EngagementBait.mod.config and EngagementBait.mod.config.id then
-        Twitch.request("streams?user_id=" .. EngagementBait.mod.config.id, 
+        Twitch.get("streams?user_id=" .. EngagementBait.mod.config.id, 
             function (code, body, headers)
                 if code ~= 200 then
                     print("Failed to fetch Stream Info. Code:", code)
@@ -176,7 +205,7 @@ Twitch = {
 
     --- sets the viewer count 
     set_viewer_count = function ()
-        Twitch.request("streams?user_id=" .. EngagementBait.mod.config.id,
+        Twitch.get("streams?user_id=" .. EngagementBait.mod.config.id,
             function (code, body, headers)
                 if code ~= 200 then
                     print("Failed to fetch Stream Info. Code:", code)
@@ -249,13 +278,21 @@ end
 
 function G.FUNCS.EngagementBaitLinkAccount(e)
     local REDIRECT_URI = "http://localhost:3000/callback"
+    local scope = ""
+    for k, v in ipairs(Twitch.scope) do
+        scope = scope .. v
+        if k < #Twitch.scope then
+            scope = scope .. "+"
+        end
+    end
+    print(scope)
 
     local auth_url =
         "https://id.twitch.tv/oauth2/authorize" ..
         "?response_type=token" ..
         "&client_id=" .. Twitch.client_id ..
         "&redirect_uri=" .. REDIRECT_URI ..
-        "&scope=chat:read+chat:edit+moderator:read:followers+channel:read:subscriptions+bits:read+channel:manage:polls"
+        "&scope=" .. scope
 
     love.system.openURL(auth_url)
 

@@ -169,6 +169,7 @@ local json = require("json")
 
 Twitch.Events.Prediction = {
     active_poll_id = nil,
+    opts = nil,
 
     start_prediction = function (title, outcomes, prediction_window)
         local body = json.encode({
@@ -189,6 +190,7 @@ Twitch.Events.Prediction = {
                     local prediction = data.data[1]
                     print("Prediction started with ID:", prediction.id)
                     Twitch.Events.Prediction.active_poll_id = prediction.id
+                    Twitch.Events.Prediction.opts = prediction.outcomes
                 else
                     print("Failed to parse Twitch response.")
                 end
@@ -196,26 +198,35 @@ Twitch.Events.Prediction = {
         )
     end,
 
-    resolve_prediction = function (winning_outcome_id)
+    --- resolves the poll with the given id
+    --- @param winning_outcome_id string
+    --- @param card Card
+    --- @param callback function
+    resolve_prediction = function (winning_outcome_id, card, callback)
         if not Twitch.Events.Prediction.active_poll_id then
             print("No active prediction to resolve.")
             return
         end
         local body = json.encode({
             broadcaster_id = Twitch.user_id,
+            id = Twitch.Events.Prediction.active_poll_id,
             status = "RESOLVED",
             winning_outcome_id = winning_outcome_id
         })
-        Twitch.post("predictions",body,
+        print(body)
+        Twitch.patch("predictions",body,
             function (code, body, headers)
                 if code ~= 200 then
                     print("Failed to start prediction. Code:", code)
                     print("Response body:", body)   
                     return
                 end
+                local data = json.decode(body)
+                callback(card,data.data[1])
             end
         )
         Twitch.Events.Prediction.active_poll_id = nil
+        Twitch.Events.Prediction.opts = nil
     end,
 
     cancele_prediction = function ()
@@ -225,6 +236,7 @@ Twitch.Events.Prediction = {
         end
         local body = json.encode({
             broadcaster_id = Twitch.user_id,
+            id = Twitch.Events.Prediction.active_poll_id,
             status = "CANCELED"
         })
         Twitch.post("predictions",body,
@@ -237,6 +249,7 @@ Twitch.Events.Prediction = {
             end
         )
         Twitch.Events.Prediction.active_poll_id = nil
+        Twitch.Events.Prediction.opts = nil
     end,
 
     lock_prediction = function ()
@@ -246,6 +259,7 @@ Twitch.Events.Prediction = {
         end
         local body = json.encode({
             broadcaster_id = Twitch.user_id,
+            id = Twitch.Events.Prediction.active_poll_id,
             status = "LOCKED"
         })
         Twitch.post("predictions",body,
