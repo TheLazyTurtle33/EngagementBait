@@ -58,16 +58,12 @@ SMODS.Joker {
     end,
 
     chat = function (card, data)
-        card.ability.extra.chatcount = card.ability.extra.chatcount + 1
-            attention_text({
-                text = data.name .. ": " .. data.message,
-                scale = 0.5,
-                hold = 2.5,
-                fade = 1.5,
-                major = card,
-                -- align = 'cm',
-                offset = { x = 0, y = -1.5 },
-            })
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "chatcount",
+            scalar_table = { val = 1 },
+            scalar_value = "val",
+        })
     end
 
 

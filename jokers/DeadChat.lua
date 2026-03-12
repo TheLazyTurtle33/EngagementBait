@@ -52,7 +52,7 @@ SMODS.Joker {
                 if last_chat_time and (now - last_chat_time) >= card.ability.extra.time_interval_s then
                     if card.ability.extra.xmult - card.ability.extra.xmult_lose <= 1 then
                         attention_text({
-                            text = "Get some Chatters lmao",
+                            text = "",
                             scale = 0.5,
                             hold = 3,
                             fade = 3,
@@ -61,14 +61,15 @@ SMODS.Joker {
                         })
                         SMODS.destroy_cards(card, nil, nil, false)
                     else
-                        card.ability.extra.xmult = card.ability.extra.xmult - card.ability.extra.xmult_lose
-                        attention_text({
-                            text = "-x" .. card.ability.extra.xmult_lose,
-                            scale = 0.75,
-                            hold = 2,
-                            fade = 1,
-                            major = card,
-                            colour = G.C.RED,
+                        SMODS.scale_card(card, {
+                            ref_table = card.ability.extra,
+                            ref_value = "xmult",
+                            scalar_value = "xmult_lose",
+                            scaling_message = {
+                                message = "awfully quite",
+                                colour = G.C.RED
+                            },
+                            operation = '-'
                         })
                     end
                 end

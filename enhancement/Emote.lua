@@ -10,7 +10,7 @@ SMODS.Enhancement {
     loc_vars = function (self, info_queue, card)
         Twitch.Chat.Mode.CheckMode()
         local x_mult_curent
-        if Twitch.Chat.Mode.mode.emote_mode then
+        if Twitch.Chat.Mode.current.emote_mode then
             x_mult_curent = card.ability.extra.xmult
         else
             x_mult_curent = card.ability.extra.xmult_neg
@@ -29,7 +29,7 @@ SMODS.Enhancement {
             Twitch.Chat.Mode.CheckMode()
         end
         if context.main_scoring and context.cardarea == G.play then
-            if Twitch.Chat.Mode.mode.emote_mode then
+            if Twitch.Chat.Mode.current.emote_mode then
                 return {
                     x_mult = card.ability.extra.x_mult
                 }

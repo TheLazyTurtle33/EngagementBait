@@ -75,7 +75,7 @@ SMODS.Joker {
     end,
 
     RandomWord = function ()
-        local list = io.open(EngagementBait.mod.path .. "Words/" .. EngagementBait.mod.config.wordlist .. ".txt", "r"):read("*a")
+        local list = io.open(EngagementBait.mod.path .. "Words/" .. EngagementBait.mod.config.wordlist, "r"):read("*a")
         local words = {}
         for s in string.gmatch(list, "([^\r\n]+)") do
             table.insert(words, s)

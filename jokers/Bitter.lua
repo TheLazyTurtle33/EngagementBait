@@ -4,14 +4,14 @@ SMODS.Joker {
     config = {
          extra = {
             mult = 1,
-            bitts = 0,
+            bits = 0,
      	}
     },
     loc_vars = function (self, info_queue, card)
         return {
            vars = {
             	card.ability.extra.mult,
-            	card.ability.extra.bitts * card.ability.extra.mult,
+            	card.ability.extra.bits * card.ability.extra.mult,
            }
         }
     end,
@@ -24,7 +24,7 @@ SMODS.Joker {
     calculate = function (self, card, context)
         if context.joker_main then
         	return {
-                extra = { mult = card.ability.extra.bitts * card.ability.extra.mult } }
+                extra = { mult = card.ability.extra.bits * card.ability.extra.mult } }
         end
     end,
     update = function (self, card, context)
@@ -39,27 +39,28 @@ SMODS.Joker {
  	end,
 
     add_to_deck = function (self, card, deck)
-        Twitch.Events.Bits.register_callback(card, self.bits)
+        Twitch.Events.Bits.register_callback(card, self.bits_gained)
     end,
     remove_from_deck = function (self, card, deck)
         Twitch.Events.Bits.unregister_callback(card)
     end,
     load = function (self, card)
-        Twitch.Events.Bits.register_callback(card, self.bits)
+        Twitch.Events.Bits.register_callback(card, self.bits_gained)
     end,
-    bits = function (card, data)
+
+    bits_gained = function (card, data)
         print("bits: " .. data.bits)
-        card.ability.extra.bitts = card.ability.extra.bitts + tonumber(data.bits)
-        attention_text({
-            text = "+" .. data.bits,
-            scale = 0.75,
-            hold = 1,
-            fade = 1,
-            major = card,
-            colour = G.C.PURPLE,
+        data.bits_num = tonumber(data.bits)
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "bits",
+            scalar_table = data,
+            scalar_value = "bits_num",
+            scaling_message = {
+                message = "+" .. data.bits,
+                colour = G.C.PURPLE
+            }
         })
-        card:juice_up(0.1, 0.2)
-        play_sound('tarot2', 0.76, 0.6);
     end,
 
 }

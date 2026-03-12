@@ -60,22 +60,23 @@ SMODS.Joker {
     chat = function (card, data)
         local c = G.C.GREEN
         if Twitch.is_bot(data.name) then
-            c = G.C.RED
-            card.ability.extra.mult = card.ability.extra.mult * card.ability.extra.mult_lose_x
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_lose_x",
+                scaling_message = {
+                    message = "BOT",
+                    colour = G.C.RED
+                },
+                operation = 'X'
+            })
         else
-            c = G.C.GREEN
-            card.ability.extra.mult = card.ability.extra.mult + 1
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_gain",
+            })
         end
-        attention_text({
-            text = data.message,
-            scale = 0.5,
-            hold = 1.5,
-            fade = 1.5,
-            major = card,
-            -- align = 'cm',
-            offset = { x = 0, y = -1.5 },
-            colour = c,
-        })
     end,
 
 
