@@ -35,7 +35,7 @@ Twitch = {
     --- posts datas to an endpoint.
     --- @param endpoint string The endpoint to request.
     --- @param callback function The callback function to call when the request is completed.
-    request = function (endpoint, callback)
+    get = function (endpoint, callback)
         local headers = {
         	["Client-ID"] = Twitch.client_id,
     		["Authorization"] = "Bearer " .. Twitch.token,
