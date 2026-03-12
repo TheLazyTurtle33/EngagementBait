@@ -8,7 +8,7 @@ SMODS.Joker {
     	}
     },
     loc_vars = function (self, info_queue, card)
-        Twitch.get_viewer_count()
+        Twitch.set_viewer_count()
         card.ability.extra.viewers = Twitch.viewers or 0
         return {
            vars = {
@@ -26,7 +26,7 @@ SMODS.Joker {
 
     calculate = function (self, card, context)
         if context.before then
-            Twitch.get_viewer_count()
+            Twitch.set_viewer_count()
             card.ability.extra.viewers = Twitch.viewers or 0
         end
         if context.joker_main then

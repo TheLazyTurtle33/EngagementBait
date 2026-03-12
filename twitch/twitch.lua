@@ -1,7 +1,6 @@
 local https = require("SMODS.https")
 local json = require("json")
 
-
 Twitch = {
     token = "", -- privete token of user
     client_id = "tztqbknddp0rfm2wmfkjvckjc4in5j", -- public client id
@@ -54,29 +53,21 @@ Twitch = {
 
     -- starts the server
     startServer = function ()
-        if Twitch.get_server() then
+        if Twitch.server then
             print("Twitch server already running.")
             return
         end
         print("Starting Twitch server...")
         local server_code = io.open(EngagementBait.mod.path .. "server/server.lua", "r"):read("*a")
-        Twitch.server = love.thread.newThread("TwitchServer", server_code)
+        Twitch.server = love.thread.newThread(server_code)
         Twitch.server:start(EngagementBait.mod.path)
         Twitch.sendData()
     end,
 
-    --- tries to return the server and find it if its not correctly loaded
-    ---@diagnostic disable-next-line: undefined-doc-name
-    --- @return Thread | nil
-    get_server = function ()
-        if not Twitch.server then
-            Twitch.server = love.thread.getThread("TwitchServer")
-        end
-        return Twitch.server
-    end,
+
 
     sendData = function ()
-        if not Twitch.get_server() then
+        if not Twitch.server then
             print("Twitch server not found.")
             return
         end
@@ -241,7 +232,7 @@ Twitch = {
 
 
 function G.FUNCS.EngagementBaitTwitchRestartServer ()
-    if Twitch.get_server() then
+    if Twitch.server then
         print("Killing Twitch server...")
         Twitch.server:release()
     end
@@ -249,7 +240,7 @@ function G.FUNCS.EngagementBaitTwitchRestartServer ()
 end
 
 function G.FUNCS.EngagementBaitLinkOpenDashboard ()
-    if not Twitch.get_server() then
+    if not Twitch.server then
         Twitch.startServer()
     end
     Twitch.sendData()
@@ -296,3 +287,7 @@ function G.FUNCS.EngagementBaitLinkAccount(e)
 end
 
 
+
+
+assert(SMODS.load_file("twitch/Twitch.Chat.lua"))()
+assert(SMODS.load_file("twitch/Twitch.Event.lua"))()

@@ -96,7 +96,7 @@ Twitch.Events.Poll = {
 
     start_poll = function (question, options, duration)
         local body = json.encode({
-            broadcaster_id = Twitch.client_id,
+            broadcaster_id = Twitch.user_id,
             title = question,
             choices = options,
             duration = duration
@@ -172,7 +172,7 @@ Twitch.Events.Prediction = {
 
     start_prediction = function (title, outcomes, prediction_window)
         local body = json.encode({
-            broadcaster_id = Twitch.client_id,
+            broadcaster_id = Twitch.user_id,
             title = title,
             outcomes = outcomes,
             prediction_window = prediction_window
@@ -202,7 +202,7 @@ Twitch.Events.Prediction = {
             return
         end
         local body = json.encode({
-            broadcaster_id = Twitch.client_id,
+            broadcaster_id = Twitch.user_id,
             status = "RESOLVED",
             winning_outcome_id = winning_outcome_id
         })
@@ -224,7 +224,7 @@ Twitch.Events.Prediction = {
             return
         end
         local body = json.encode({
-            broadcaster_id = Twitch.client_id,
+            broadcaster_id = Twitch.user_id,
             status = "CANCELED"
         })
         Twitch.post("predictions",body,
@@ -245,7 +245,7 @@ Twitch.Events.Prediction = {
             return
         end
         local body = json.encode({
-            broadcaster_id = Twitch.client_id,
+            broadcaster_id = Twitch.user_id,
             status = "LOCKED"
         })
         Twitch.post("predictions",body,

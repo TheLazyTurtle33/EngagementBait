@@ -1,6 +1,9 @@
 local https = require("SMODS.https")
 local json = require("json")
 
+
+
+
 if not Twitch.Chat then
     Twitch.Chat = {}
     Twitch.Chat.Callbacks = {{ card = {}, callback = function(card, data) end }}
