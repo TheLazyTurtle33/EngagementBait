@@ -46,6 +46,14 @@ return {
 			-- j_eb_primer = { name = "Primeer", text  = {''} },
 			-- j_eb_subathon = { name = "Subathon", text  = {''} },
 			-- j_eb_subber = { name = "Subber", text  = {''} },
+			j_eb_stremer_luck = { 
+				name = "Stremer Luck",
+				text  = {
+					'All {C:attention}listed',
+                    '{C:green,S:1.1}probabilities{} are now {C:attention,E:2}garenteed{}',
+					'rare jokers are {C:attention}more likely{} to show up',
+				}
+			},
 			j_eb_the_great_vote = {
 				name = "The Great Vote",
 				text  = {
