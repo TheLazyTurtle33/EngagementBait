@@ -15,6 +15,14 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
+    key = "temp",
+    px = 71,
+    py = 95,
+    path = "placeholder.png"
+})
+
+
+SMODS.Atlas({
     key = "Enhancement",
     px = 71,
     py = 95,

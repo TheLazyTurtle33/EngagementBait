@@ -1,11 +1,11 @@
 SMODS.Joker {
     key = "the_predictor",
-    -- atlas = 'Joker', pos = { x = 2, y = 0 },
+    atlas = 'temp', pos = { x = 2, y = 0 },
     config = {
         extra = {
             xmult_gain = 0.25,
             xmult_lose = 0.25,
-            xmult = 1.5
+            xmult = 2
         }
     },
     loc_vars = function (self, info_queue, card)

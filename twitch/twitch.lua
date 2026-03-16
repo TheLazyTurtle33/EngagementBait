@@ -205,6 +205,7 @@ Twitch = {
 
     --- sets the viewer count 
     set_viewer_count = function ()
+        if not EngagementBait.mod.config or not EngagementBait.mod.config.id then Twitch.viewers = 0 return end
         Twitch.get("streams?user_id=" .. EngagementBait.mod.config.id,
             function (code, body, headers)
                 if code ~= 200 then

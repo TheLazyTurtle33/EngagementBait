@@ -1,0 +1,26 @@
+[manifest] # Header for the file, this should only be here once at the beginning
+version = "0.1.0"
+priority = 0 # Priority for loading the file
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua' # The file you want to patch.
+pattern = '''
+if v.name == 'Black Hole' or v.name == 'The Soul' or v.hidden then
+    add = false
+end
+''' # The line(s) you want to patch. In pattern patches it should be the whole line(s).
+# Make sure it's unique in that file. (Unless you want to patch multiple different lines, of course)
+position = "at" # Where you want to patch it: 'before', 'after' or 'at' (this last one replaces the whole pattern)
+payload = '''
+if not next(SMODS.find_card("j_eb_streamer_luck")) then
+    if v.name == 'Black Hole' or v.name == 'The Soul' or v.hidden then
+        add = false
+    end
+else
+    if v.hidden then
+        add = false
+    end
+end
+''' # What code you want to append/replace it with.
+match_indent = true

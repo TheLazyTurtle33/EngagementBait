@@ -46,7 +46,7 @@ return {
 			-- j_eb_primer = { name = "Primeer", text  = {''} },
 			-- j_eb_subathon = { name = "Subathon", text  = {''} },
 			-- j_eb_subber = { name = "Subber", text  = {''} },
-			j_eb_stremer_luck = { 
+			j_eb_streamer_luck = { 
 				name = "Stremer Luck",
 				text  = {
 					'All {C:attention}listed',

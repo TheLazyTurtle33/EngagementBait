@@ -1,11 +1,12 @@
 SMODS.Joker {
     key = "streamer_luck",
-    atlas = 'Joker', pos = { x = 0, y = 0 },
+    atlas = 'temp', pos = { x = 1, y = 0 },
     config = {
        extra = {
-       		common_mod = 0.5,
+       		common_mod = 0.3,
             uncommon_mod = 0.75,
-            rare_mod = 1.25,
+            rare_mod = 2,
+            legandary_val = 10,
     	}
     },
     rarity = 2,
@@ -22,7 +23,7 @@ SMODS.Joker {
         G.GAME.common_mod = G.GAME.common_mod * card.ability.extra.common_mod
         G.GAME.uncommon_mod = G.GAME.uncommon_mod * card.ability.extra.uncommon_mod
         G.GAME.rare_mod = G.GAME.rare_mod * card.ability.extra.rare_mod
-    end,
+        end,
 
     remove_from_deck = function (self, card, deck)
         G.GAME.common_mod = G.GAME.common_mod / card.ability.extra.common_mod

@@ -1,8 +1,8 @@
 {
   "Lua.workspace.library": [
-    "F:/SteamLibrary/steamapps/common/Balatro/Balatro",
-    "C:/Users/jro03/AppData/Roaming/Balatro/Mods/Steamodded",
-    "C:/Users/jro03/AppData/Roaming/Balatro/Mods/lovely",
+    "/home/turt/Balatro/Mods/Steamodded",
+    "/home/turt/Balatro/Mods/lovely",
+    "/home/turt/Balatro/Mods/lovely/game-dump",
   ],
   "Lua.runtime.version": "LuaJIT",
   "Lua.workspace.checkThirdParty": false,
